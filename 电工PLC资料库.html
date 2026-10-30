@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>电工 / PLC 图文资料库 · 元件 · 实操 · 职业规划</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141b24'/%3E%3Cpath d='M18 3 7 18h7l-1 11 11-15h-7z' fill='%23ef8623'/%3E%3C/svg%3E">
+<style>
+/* ========== 设计变量 ========== */
+:root{
+  --bg:#141b24; --panel:#1d2733; --panel-2:#25313f; --line-dark:#334152;
+  --paper:#edf0f4; --card:#ffffff; --line:#d4dae1; --line-2:#e4e8ed;
+  --ink:#1e2937; --ink-2:#586574; --ink-3:#8a95a1;
+  --blue:#1f63b0; --blue-2:#2f80d2; --blue-soft:#e6f0fb;
+  --orange:#ef8623; --orange-soft:#fdf0e2;
+  --green:#26a364; --green-soft:#e4f5ec;
+  --red:#d8483e; --red-soft:#fbe9e7;
+  --yellow:#e3b534; --yellow-soft:#fbf3da;
+  --mono:Consolas,"Courier New",monospace;
+  --sans:"Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Segoe UI",sans-serif;
+  --shadow:0 2px 10px rgba(20,27,36,.08); --shadow-lg:0 10px 34px rgba(20,27,36,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.65}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:var(--blue);text-decoration:none}
+.mono{font-family:var(--mono)}
+.view{display:none}
+.view.active{display:block}
+
+/* ========== 顶部导航 ========== */
+.topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:3px solid var(--orange)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:0 18px;display:flex;align-items:center;gap:18px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:17px;white-space:nowrap}
+.brand-mark{width:30px;height:30px;flex:0 0 30px}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:8px 14px;color:#aeb9c6;font-size:14.5px;white-space:nowrap;border-radius:4px;min-height:40px;display:flex;align-items:center}
+.nav-btn:hover{color:#fff;background:var(--panel-2)}
+.nav-btn.on{color:#fff;background:var(--blue)}
+.nav-btn .n{font-family:var(--mono);font-size:12px;color:var(--orange);margin-right:6px}
+.nav-btn.on .n{color:var(--yellow)}
+
+/* ========== 通用区块 ========== */
+.wrap{max-width:1240px;margin:0 auto;padding:0 18px}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12.5px;color:var(--blue);background:var(--blue-soft);padding:4px 10px;border-radius:3px;letter-spacing:.5px}
+h2.view-title{font-size:24px;margin:16px 0 6px}
+.view-sub{color:var(--ink-2);font-size:14.5px;margin-bottom:22px}
+
+/* ========== 首页 Hero ========== */
+.hero{background:var(--bg);color:#fff;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;opacity:.16;
+  background-image:linear-gradient(#6b7d92 1px,transparent 1px),linear-gradient(90deg,#6b7d92 1px,transparent 1px);
+  background-size:28px 28px}
+.hero-in{max-width:1240px;margin:0 auto;padding:46px 18px 40px;position:relative;display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
+.hero h1{font-size:30px;line-height:1.3;margin-bottom:14px}
+.hero h1 .hl{color:var(--orange)}
+.hero p{color:#b9c4d0;font-size:15px;max-width:520px;margin-bottom:22px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.hero-stat{background:var(--panel);border:1px solid var(--line-dark);border-radius:6px;padding:10px 16px;min-width:104px}
+.hero-stat b{display:block;font-size:22px;color:var(--yellow);font-family:var(--mono)}
+.hero-stat span{font-size:12.5px;color:#9aa7b5}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:5px;font-size:14.5px;font-weight:600;min-height:44px}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:#e07a18}
+.btn-ghost{background:transparent;color:#dfe6ee;border:1px solid #46556a}
+.btn-ghost:hover{background:var(--panel-2)}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:#1a5599}
+.hero-board{background:var(--panel);border:1px solid var(--line-dark);border-radius:10px;padding:16px}
+.hero-board-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--mono);font-size:12.5px;color:#8fa0b2}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--green);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* 首页快速入口 */
+.quick{padding:38px 0 10px}
+.quick-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.quick-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:20px;display:flex;gap:16px;align-items:flex-start;box-shadow:var(--shadow);text-align:left;width:100%}
+.quick-card:hover{border-color:var(--blue);transform:translateY(-2px);transition:.2s}
+.quick-ico{width:44px;height:44px;flex:0 0 44px;background:var(--blue-soft);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.quick-card h3{font-size:16px;margin-bottom:4px}
+.quick-card p{font-size:13.5px;color:var(--ink-2)}
+
+/* ========== 元件库 ========== */
+.lib-layout{display:grid;grid-template-columns:1fr;gap:20px;padding:26px 0 50px}
+.cat-list{display:flex;gap:8px;flex-wrap:wrap}
+.cat-btn{padding:9px 14px;border-radius:5px;background:var(--card);border:1px solid var(--line);font-size:14px;min-height:42px}
+.cat-btn .cnt{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-left:5px}
+.cat-btn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cat-btn.on .cnt{color:#cfe2f7}
+.comp-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.comp-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);text-align:left;display:flex;flex-direction:column}
+.comp-card:hover{border-color:var(--blue)}
+.comp-thumb{height:150px;background:#f7f9fb;border-bottom:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;padding:14px}
+.comp-thumb img{max-height:122px;object-fit:contain}
+.comp-body{padding:14px 15px 15px;flex:1;display:flex;flex-direction:column}
+.comp-code{font-family:var(--mono);font-size:12px;color:var(--orange);letter-spacing:.5px}
+.comp-body h3{font-size:16px;margin:3px 0 6px}
+.comp-body p{font-size:13px;color:var(--ink-2);flex:1}
+.comp-more{margin-top:10px;font-size:13.5px;color:var(--blue);font-weight:600;display:inline-flex;align-items:center;gap:5px}
+
+/* ========== 详情弹层 ========== */
+.modal-mask{position:fixed;inset:0;background:rgba(14,20,28,.62);z-index:80;display:none;align-items:flex-start;justify-content:center;padding:26px 14px;overflow-y:auto}
+.modal-mask.open{display:flex}
+.modal{background:var(--paper);border-radius:10px;max-width:960px;width:100%;box-shadow:var(--shadow-lg);overflow:hidden}
+.modal-head{background:var(--bg);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.modal-head h3{font-size:19px}
+.modal-head .code{font-family:var(--mono);font-size:12.5px;color:var(--yellow)}
+.modal-close{width:38px;height:38px;flex:0 0 38px;border-radius:5px;background:var(--panel-2);color:#fff;font-size:18px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--red)}
+.modal-body{padding:20px}
+.detail-grid{display:grid;grid-template-columns:1fr;gap:18px}
+.detail-photo{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;display:flex;align-items:center;justify-content:center;min-height:240px}
+.detail-photo img{max-height:260px;object-fit:contain}
+.detail-block{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.detail-block h4{font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line-2)}
+.detail-block h4 .b{font-family:var(--mono);font-size:12px;color:var(--orange)}
+.detail-block ul{list-style:none}
+.detail-block li{position:relative;padding-left:16px;font-size:14px;margin-bottom:7px;color:var(--ink)}
+.detail-block li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;background:var(--blue);border-radius:1px}
+.detail-block li.warn::before{background:var(--red)}
+.detail-block li.ok::before{background:var(--green)}
+.term-table{width:100%;border-collapse:collapse;font-size:13.5px}
+.term-table th,.term-table td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.term-table th{background:#f3f6f9;width:34%}
+.term-table td .mono{color:var(--blue)}
+.svg-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px}
+.svg-box svg{width:100%;height:auto}
+.tip-line{font-size:13px;color:var(--ink-2);margin-top:8px;display:flex;gap:7px}
+.tip-line b{color:var(--orange)}
+
+/* ========== 模拟器 ========== */
+.sim-page{padding:26px 0 50px}
+.sim-board{background:var(--bg);border-radius:10px;border:1px solid var(--line-dark);padding:14px 12px 18px;overflow-x:auto}
+.sim-board svg{min-width:880px;width:100%;height:auto}
+.sim-controls{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 14px}
+.sim-btn{padding:11px 18px;border-radius:6px;font-weight:600;font-size:14px;min-height:44px;display:inline-flex;align-items:center;gap:8px}
+.sim-btn.start{background:var(--green);color:#fff}
+.sim-btn.stop{background:var(--red);color:#fff}
+.sim-btn.fault{background:var(--yellow);color:#3a2e08}
+.sim-btn.reset{background:var(--panel-2);color:#fff;border:1px solid var(--line-dark)}
+.sim-btn:disabled{opacity:.45;cursor:not-allowed}
+.sim-status{display:flex;flex-wrap:wrap;gap:10px}
+.status-chip{font-family:var(--mono);font-size:12.5px;padding:6px 12px;border-radius:20px;background:var(--panel);color:#aeb9c6;border:1px solid var(--line-dark)}
+.status-chip.on{color:#fff}
+.status-chip.on.g{background:var(--green);border-color:var(--green)}
+.status-chip.on.r{background:var(--red);border-color:var(--red)}
+.status-chip.on.y{background:var(--orange);border-color:var(--orange)}
+.sim-log{background:var(--panel);border:1px solid var(--line-dark);border-radius:8px;padding:12px 15px;margin-top:14px;font-family:var(--mono);font-size:13px;color:#b9c6d3;min-height:74px}
+.sim-log .lg{display:block;margin-bottom:4px}
+.sim-log .lg .t{color:var(--yellow);margin-right:8px}
+.sim-log .lg.g{color:#7fd6a8}.sim-log .lg.r{color:#f0928a}.sim-log .lg.y{color:#f0c269}
+.sim-hint{background:var(--blue-soft);border:1px solid #c4dcf3;border-radius:8px;padding:13px 16px;font-size:13.5px;margin-top:14px}
+.sim-hint b{color:var(--blue)}
+.term-info{display:none;margin-top:14px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:6px;padding:13px 16px;font-size:14px}
+.term-info.show{display:block}
+.term-info h5{font-size:14.5px;margin-bottom:4px}
+.term-info .mono{color:var(--orange)}
+
+/* SVG 回路通用样式 */
+.wire{stroke:#9fb0c2;stroke-width:2.4;fill:none;stroke-linecap:round}
+.wire.live{stroke:var(--yellow);stroke-width:3;filter:drop-shadow(0 0 3px rgba(227,181,52,.7));stroke-dasharray:7 6;animation:flow .7s linear infinite}
+.wire.dim{opacity:.35}
+@keyframes flow{to{stroke-dashoffset:-13}}
+.dev-text{fill:#c4cfdb;font-family:var(--mono);font-size:13px}
+.dev-label{fill:#8fa0b2;font-family:var(--mono);font-size:12px}
+.term-hit{fill:transparent;cursor:pointer}
+.term-hit:hover{fill:rgba(239,134,35,.25)}
+.contact-gap{stroke:#9fb0c2;stroke-width:2.4}
+.coil-core{stroke:#9fb0c2;stroke-width:2;fill:none}
+.motor-circle{stroke:#9fb0c2;stroke-width:2.6;fill:var(--panel)}
+.motor-run{stroke:var(--green);fill:#163026}
+.spin-blade{stroke:#9fb0c2;stroke-width:2.4;transform-origin:center;transform-box:fill-box}
+.spin-blade.go{animation:spin .8s linear infinite;stroke:var(--green)}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* 模拟器端子网络高亮 */
+.net-hl{stroke:#ef8623 !important;stroke-width:3.6 !important;stroke-dasharray:none !important;animation:none !important;filter:drop-shadow(0 0 4px rgba(239,134,35,.85))}
+.sim-coil-rect{stroke:#9fb0c2;stroke-width:2.4;fill:var(--panel)}
+.sim-coil-rect.on{stroke:#e3b534;fill:#33291a}
+.sim-fr-rect{stroke:#9fb0c2;stroke-width:2;fill:var(--panel)}
+.sim-fr-rect.on{stroke:#d8483e;fill:#3a1d1a}
+.sim-fr-nc.on{stroke:#d8483e}
+.sim-sb2.on{stroke:#d8483e}
+
+/* ========== 习题 ========== */
+.quiz-page{padding:26px 0 50px}
+.quiz-tabs{display:flex;gap:8px;margin-bottom:18px}
+.quiz-tab{padding:9px 18px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:14px;min-height:42px}
+.quiz-tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.quiz-summary{background:var(--bg);color:#fff;border-radius:8px;padding:16px 20px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-bottom:20px}
+.quiz-summary b{font-family:var(--mono);font-size:26px;color:var(--yellow)}
+.quiz-item{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.quiz-q{font-weight:600;font-size:15px;margin-bottom:12px;display:flex;gap:10px}
+.quiz-q .qn{font-family:var(--mono);color:var(--orange);flex:0 0 auto}
+.quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border:1px solid var(--line);border-radius:6px;margin-bottom:8px;font-size:14px;min-height:44px;cursor:pointer;width:100%;text-align:left}
+.quiz-opt:hover{border-color:var(--blue);background:#f6f9fd}
+.quiz-opt .mk{width:20px;height:20px;flex:0 0 20px;border:2px solid var(--ink-3);border-radius:50%;font-size:12px;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-soft)}
+.quiz-opt.correct .mk{background:var(--green);border-color:var(--green);color:#fff}
+.quiz-opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.quiz-opt.wrong .mk{background:var(--red);border-color:var(--red);color:#fff}
+.quiz-opt.lock{cursor:default;pointer-events:none}
+.quiz-explain{display:none;margin-top:10px;padding:12px 14px;border-radius:6px;font-size:13.5px;background:#f3f6f9;border-left:3px solid var(--blue)}
+.quiz-explain.show{display:block}
+.quiz-explain b{color:var(--blue)}
+.quiz-explain.bad b{color:var(--red)}
+
+/* ========== 职业规划 ========== */
+.career-page{padding:26px 0 50px}
+.career-sec{margin-bottom:38px}
+.career-sec>h3{font-size:19px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.career-sec>h3 .n{font-family:var(--mono);font-size:13px;color:#fff;background:var(--blue);width:26px;height:26px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center}
+.career-sec>p.desc{color:var(--ink-2);font-size:14px;margin-bottom:16px}
+/* 时间轴 */
+.timeline{position:relative;padding-left:0}
+.tl-row{display:grid;grid-template-columns:1fr;gap:6px;margin-bottom:18px;position:relative;padding-left:30px}
+.tl-row::before{content:"";position:absolute;left:9px;top:22px;bottom:-18px;width:2px;background:var(--line)}
+.tl-row:last-child::before{display:none}
+.tl-dot{position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:var(--blue);border:4px solid var(--blue-soft);z-index:1}
+.tl-row.hot .tl-dot{background:var(--orange);border-color:var(--orange-soft)}
+.tl-time{font-family:var(--mono);font-size:12.5px;color:var(--orange);font-weight:700}
+.tl-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px;box-shadow:var(--shadow)}
+.tl-card h4{font-size:15px;margin-bottom:5px}
+.tl-card p{font-size:13.5px;color:var(--ink-2)}
+.tl-card .kpi{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:12px;background:var(--blue-soft);color:var(--blue);padding:3px 9px;border-radius:4px}
+/* 表格 */
+.data-table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13.5px}
+.data-table th{background:var(--bg);color:#fff;padding:10px 12px;text-align:left;font-weight:600}
+.data-table td{padding:10px 12px;border-top:1px solid var(--line-2);vertical-align:top}
+.data-table tr:nth-child(even) td{background:#f8fafb}
+.tag-pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:10px;font-family:var(--mono)}
+.pill-g{background:var(--green-soft);color:var(--green)}
+.pill-r{background:var(--red-soft);color:var(--red)}
+.pill-y{background:var(--yellow-soft);color:#9a7614}
+.pill-b{background:var(--blue-soft);color:var(--blue)}
+/* 话术卡 */
+.script-card{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:12px;overflow:hidden}
+.script-q{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 18px;font-weight:600;font-size:14.5px;min-height:48px;text-align:left}
+.script-q .arrow{transition:transform .25s;color:var(--ink-3);flex:0 0 auto}
+.script-card.open .script-q .arrow{transform:rotate(180deg)}
+.script-a{display:none;padding:0 18px 16px;font-size:14px}
+.script-card.open .script-a{display:block}
+.script-a .say{background:#f4f8f3;border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:11px 14px;margin:8px 0;font-size:13.5px}
+.script-a .note{font-size:13px;color:var(--ink-2);margin-top:8px}
+.script-a .note b{color:var(--red)}
+/* 问答手风琴 */
+.faq-card{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:10px}
+.faq-q{width:100%;padding:14px 18px;font-weight:600;font-size:14px;display:flex;gap:10px;min-height:46px;text-align:left}
+.faq-q .qn{font-family:var(--mono);color:var(--blue);flex:0 0 auto}
+.faq-a{display:none;padding:0 18px 15px;font-size:14px;color:var(--ink)}
+.faq-card.open .faq-a{display:block}
+.callout{border-radius:8px;padding:14px 16px;font-size:13.5px;margin:14px 0}
+.callout.warn{background:var(--red-soft);border-left:4px solid var(--red)}
+.callout.warn b{color:var(--red)}
+.callout.ok{background:var(--green-soft);border-left:4px solid var(--green)}
+.callout.ok b{color:var(--green)}
+.callout.info{background:var(--blue-soft);border-left:4px solid var(--blue)}
+.callout.info b{color:var(--blue)}
+
+/* ========== 页脚 ========== */
+.footer{background:var(--bg);color:#8fa0b2;font-size:12.5px;padding:22px 0;text-align:center;border-top:1px solid var(--line-dark)}
+
+/* ========== 响应式 ========== */
+@media (min-width:640px){
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
+  .comp-grid{grid-template-columns:repeat(3,1fr)}
+  .hero h1{font-size:34px}
+}
+@media (min-width:900px){
+  .lib-layout{grid-template-columns:180px 1fr;gap:26px}
+  .cat-list{flex-direction:column;flex-wrap:nowrap;position:sticky;top:80px}
+  .cat-btn{width:100%;text-align:left}
+  .detail-grid{grid-template-columns:340px 1fr}
+  .detail-photo{grid-row:span 2;position:sticky;top:80px;align-self:start}
+  .hero-in{grid-template-columns:1.05fr .95fr}
+  .hero h1{font-size:38px}
+  .quick-grid{grid-template-columns:repeat(4,1fr)}
+  .comp-grid{grid-template-columns:repeat(3,1fr)}
+  .tl-row{grid-template-columns:120px 1fr;gap:16px;padding-left:0}
+  .tl-row::before{left:59px}
+  .tl-dot{left:50px}
+  .tl-time{justify-self:end;padding-top:3px}
+}
+/* ========== 理论知识模块 ========== */
+.theory-layout{display:grid;grid-template-columns:1fr;gap:20px;padding:26px 0 50px}
+.theory-cat{display:flex;gap:8px;flex-wrap:wrap}
+.theory-cat-btn{padding:9px 14px;border-radius:5px;background:#fff;border:1px solid var(--line);font-size:14px;min-height:42px}
+.theory-cat-btn .tc{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-left:6px}
+.theory-cat-btn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.theory-cat-btn.on .tc{color:#cfe2f7}
+.th-card{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.th-q{width:100%;padding:14px 18px;font-weight:600;font-size:14.5px;display:flex;gap:10px;min-height:46px;text-align:left;align-items:flex-start}
+.th-q .tn{font-family:var(--mono);color:var(--orange);flex:0 0 auto}
+.th-a{display:none;padding:0 18px 16px;font-size:14px}
+.th-card.open .th-a{display:block}
+.th-a p{margin-bottom:8px}
+.th-a .key{background:var(--blue-soft);border-radius:6px;padding:10px 14px;margin:8px 0;font-size:13.5px}
+.th-a .warnb{background:var(--red-soft);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:10px 14px;margin:8px 0;font-size:13.5px}
+.th-a ul{padding-left:18px;margin:6px 0}
+.th-a ul li{margin-bottom:5px}
+.th-a .formula{font-family:var(--mono);background:#f4f6f9;border:1px solid var(--line);border-radius:6px;padding:8px 12px;display:inline-block;margin:4px 0}
+@media(min-width:900px){
+  .theory-layout{grid-template-columns:210px 1fr;gap:24px}
+  .theory-cat{flex-direction:column;flex-wrap:nowrap;position:sticky;top:78px;align-self:start}
+  .theory-cat-btn{text-align:left;justify-content:space-between}
+}
+
+/* ========== 分阶段技能清单 ========== */
+.skill-stage{border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden;background:#fff}
+.skill-stage .ss-head{display:flex;gap:12px;align-items:center;padding:13px 18px;background:var(--blue);color:#fff;flex-wrap:wrap}
+.skill-stage .ss-no{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:4px;flex:0 0 auto}
+.skill-stage .ss-head h4{font-size:15px;font-weight:600}
+.skill-stage .ss-time{font-size:12px;color:#cfe2f7;margin-left:auto}
+.skill-stage .ss-body{padding:16px 18px;display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:760px){.skill-stage .ss-body{grid-template-columns:1fr 1fr}}
+.skill-stage .ss-col h5{font-size:13px;margin-bottom:8px}
+.skill-stage .ss-col.must h5{color:var(--red)}
+.skill-stage .ss-col.know h5{color:var(--blue)}
+.skill-stage .ss-col ul{padding-left:17px;font-size:13.5px}
+.skill-stage .ss-col ul li{margin-bottom:6px}
+.skill-stage .ss-pass{padding:11px 18px;background:#f4f8f3;border-top:1px solid var(--line);font-size:13.5px}
+.skill-stage .ss-pass b{color:var(--green)}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部导航 ===== -->
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1d2733"/><path d="M18 3 7 18h7l-1 11 11-15h-7z" fill="#ef8623"/></svg>
+      电工 / PLC 资料库
+    </div>
+    <nav class="nav" id="nav">
+      <button class="nav-btn on" data-route="home"><span class="n">01</span>首页</button>
+      <button class="nav-btn" data-route="components"><span class="n">02</span>元件库</button>
+      <button class="nav-btn" data-route="simulator"><span class="n">03</span>模拟实操</button>
+      <button class="nav-btn" data-route="quiz"><span class="n">04</span>习题训练</button>
+      <button class="nav-btn" data-route="theory"><span class="n">05</span>理论知识</button>
+      <button class="nav-btn" data-route="career"><span class="n">06</span>职业规划</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== 视图：首页 ===== -->
+<main class="view active" id="view-home">
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-in">
+      <div>
+        <h1>从接线端子到 <span class="hl">PLC 工程师</span><br>一套能上手练的离线资料库</h1>
+        <p>24 种元件（含变频器、伺服、HMI 等进阶件）图文对照、自锁回路可点击模拟、56 个系统理论知识点、习题即时判分，再加上按你情况定制的分阶段技能清单、考证路径、面试话术和岗位推荐。纯静态文件，双击即开，断网能用。</p>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>24</b><span>核心元件</span></div>
+          <div class="hero-stat"><b>7</b><span>元件分类</span></div>
+          <div class="hero-stat"><b>56</b><span>理论知识点</span></div>
+          <div class="hero-stat"><b>0</b><span>安装依赖</span></div>
+        </div>
+        <div class="hero-cta">
+          <button class="btn btn-primary" data-go="simulator">先玩回路模拟</button>
+          <button class="btn btn-ghost" data-go="components">浏览元件库</button>
+        </div>
+      </div>
+      <div class="hero-board">
+        <div class="hero-board-head"><span>DEMO · 接触器自锁回路</span><span class="live-dot"></span></div>
+        <!-- 首页动态回路 SVG -->
+        <svg viewBox="0 0 460 250" aria-label="动态回路演示">
+          <line x1="40" y1="40" x2="40" y2="210" class="wire live"/>
+          <line x1="40" y1="40" x2="150" y2="40" class="wire live"/>
+          <line x1="150" y1="40" x2="150" y2="62" class="wire live"/>
+          <!-- 触点 -->
+          <circle cx="150" cy="70" r="4" fill="#e3b534"/>
+          <line x1="150" y1="78" x2="172" y2="66" stroke="#e3b534" stroke-width="2.4"/>
+          <circle cx="172" cy="70" r="4" fill="#e3b534"/>
+          <line x1="172" y1="40" x2="172" y2="70" class="wire live"/>
+          <line x1="172" y1="40" x2="250" y2="40" class="wire live"/>
+          <!-- 线圈 -->
+          <line x1="250" y1="40" x2="250" y2="92" class="wire live"/>
+          <rect x="228" y="92" width="44" height="58" rx="6" class="coil-core" style="stroke:#e3b534"/>
+          <text x="250" y="126" text-anchor="middle" class="dev-text" style="fill:#e3b534">KM</text>
+          <line x1="250" y1="150" x2="250" y2="180" class="wire live"/>
+          <line x1="40" y1="180" x2="250" y2="180" class="wire live"/>
+          <line x1="40" y1="180" x2="40" y2="210" class="wire live"/>
+          <!-- 电机 -->
+          <line x1="320" y1="40" x2="380" y2="40" class="wire live"/>
+          <line x1="320" y1="40" x2="320" y2="80" class="wire live"/>
+          <circle cx="350" cy="130" r="42" class="motor-circle motor-run"/>
+          <g class="spin-blade go" style="transform-origin:250px 130px">
+            <line x1="350" y1="96" x2="350" y2="164"/>
+            <line x1="316" y1="130" x2="384" y2="130"/>
+            <line x1="326" y1="106" x2="374" y2="154"/>
+            <line x1="374" y1="106" x2="326" y2="154"/>
+          </g>
+          <text x="350" y="136" text-anchor="middle" class="dev-text" style="fill:#7fd6a8">M</text>
+          <line x1="350" y1="172" x2="350" y2="180" class="wire live"/>
+          <line x1="250" y1="180" x2="350" y2="180" class="wire live"/>
+          <text x="60" y="225" class="dev-label">L 火线</text>
+          <text x="200" y="225" class="dev-label">N 零线</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick wrap">
+    <div class="quick-grid">
+      <button class="quick-card" data-go="components">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+        <span><h3>元件资料库</h3><p>实物图 + 原理图 + 接线要点 + 常见故障，点开即看</p></span>
+      </button>
+      <button class="quick-card" data-go="simulator">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></span>
+        <span><h3>模拟实操</h3><p>点启动看接触器吸合、电机运行，点端子看接线走向</p></span>
+      </button>
+      <button class="quick-card" data-go="quiz">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <span><h3>习题训练</h3><p>基础题 + 故障排查题，做完立刻出答案和解析</p></span>
+      </button>
+      <button class="quick-card" data-go="theory">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+        <span><h3>理论知识</h3><p>10 大分类 56 个知识点，从电学基础到 PLC、通信、安全</p></span>
+      </button>
+      <button class="quick-card" data-go="career">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>
+        <span><h3>职业规划</h3><p>8 年路径、分阶段技能清单、岗位推荐</p></span>
+      </button>
+      <button class="quick-card" data-go="career">
+        <span class="quick-ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f63b0" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg></span>
+        <span><h3>考证与面试</h3><p>考证路径、面试话术、学习问答，按你的情况定制</p></span>
+      </button>
+    </div>
+  </section>
+</main>
+
+<!-- ===== 视图：元件库（JS 渲染） ===== -->
+<section class="view" id="view-components">
+  <div class="wrap">
+    <div class="lib-layout">
+      <div class="cat-list" id="catList"></div>
+      <div>
+        <span class="section-tag">COMPONENT LIBRARY</span>
+        <h2 class="view-title">核心元件资料库</h2>
+        <p class="view-sub">按分类筛选，点任意卡片查看实物标注、原理图、接线要点与常见故障。</p>
+        <div class="comp-grid" id="compGrid"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：模拟实操（JS 渲染） ===== -->
+<section class="view" id="view-simulator">
+  <div class="wrap sim-page">
+    <span class="section-tag">HANDS-ON SIMULATOR</span>
+    <h2 class="view-title">接触器自锁控制回路 · 模拟实操</h2>
+    <p class="view-sub">这是电工上岗最经典的第一张图：按下启动，接触器吸合并自锁，电机持续运行；按下停止或热继电器动作，回路断开。</p>
+    <div class="sim-controls">
+      <button class="sim-btn start" id="btnStart">启动 SB1（常开）</button>
+      <button class="sim-btn stop" id="btnStop">停止 SB2（常闭）</button>
+      <button class="sim-btn fault" id="btnFault">模拟电机过载（FR 动作）</button>
+      <button class="sim-btn reset" id="btnReset" disabled>故障复位</button>
+    </div>
+    <div class="sim-status" id="simStatus">
+      <span class="status-chip on g" id="chipPower">总电源 QF 已合</span>
+      <span class="status-chip" id="chipCoil">KM 线圈失电</span>
+      <span class="status-chip" id="chipContact">主触点断开</span>
+      <span class="status-chip" id="chipMotor">电机停止</span>
+      <span class="status-chip" id="chipFR">FR 正常</span>
+    </div>
+    <div class="sim-board">
+      <svg id="simSvg" viewBox="0 0 1000 760" role="img" aria-label="接触器自锁回路模拟图">
+        <!-- ===== 主电路 ===== -->
+        <!-- 三相标签与进线 -->
+        <text x="144" y="32" class="dev-text" text-anchor="middle">L1</text>
+        <text x="224" y="32" class="dev-text" text-anchor="middle">L2</text>
+        <text x="304" y="32" class="dev-text" text-anchor="middle">L3</text>
+        <!-- 每相：进线-QF标记-到KM -->
+        <line x1="144" y1="45" x2="144" y2="140" class="wire" data-net="m-src"/>
+        <line x1="224" y1="45" x2="224" y2="140" class="wire" data-net="m-src"/>
+        <line x1="304" y1="45" x2="304" y2="140" class="wire" data-net="m-src"/>
+        <!-- QF 断路器标记（不打断竖线） -->
+        <line x1="138" y1="72" x2="156" y2="60" stroke="#9fb0c2" stroke-width="2.4"/>
+        <line x1="218" y1="72" x2="236" y2="60" stroke="#9fb0c2" stroke-width="2.4"/>
+        <line x1="298" y1="72" x2="316" y2="60" stroke="#9fb0c2" stroke-width="2.4"/>
+        <text x="370" y="76" class="dev-label">QF 断路器（已合闸）</text>
+        <!-- KM 主触点（常开，可切换） -->
+        <circle cx="144" cy="140" r="4" fill="#9fb0c2"/><circle cx="224" cy="140" r="4" fill="#9fb0c2"/><circle cx="304" cy="140" r="4" fill="#9fb0c2"/>
+        <line x1="144" y1="148" x2="158" y2="136" class="contact-gap mc-gap"/>
+        <line x1="224" y1="148" x2="238" y2="136" class="contact-gap mc-gap"/>
+        <line x1="304" y1="148" x2="318" y2="136" class="contact-gap mc-gap"/>
+        <line x1="144" y1="148" x2="144" y2="182" class="wire mc-close" style="display:none" data-net="m-km"/>
+        <line x1="224" y1="148" x2="224" y2="182" class="wire mc-close" style="display:none" data-net="m-km"/>
+        <line x1="304" y1="148" x2="304" y2="182" class="wire mc-close" style="display:none" data-net="m-km"/>
+        <circle cx="144" cy="190" r="4" fill="#9fb0c2"/><circle cx="224" cy="190" r="4" fill="#9fb0c2"/><circle cx="304" cy="190" r="4" fill="#9fb0c2"/>
+        <text x="370" y="168" class="dev-label">KM 主触点</text>
+        <line x1="144" y1="190" x2="144" y2="222" class="wire" data-net="m-km"/>
+        <line x1="224" y1="190" x2="224" y2="222" class="wire" data-net="m-km"/>
+        <line x1="304" y1="190" x2="304" y2="222" class="wire" data-net="m-km"/>
+        <!-- FR 热元件 -->
+        <rect x="127" y="222" width="34" height="48" rx="4" class="sim-fr-rect fr-heater"/>
+        <rect x="207" y="222" width="34" height="48" rx="4" class="sim-fr-rect fr-heater"/>
+        <rect x="287" y="222" width="34" height="48" rx="4" class="sim-fr-rect fr-heater"/>
+        <path d="M137 234 q7 9 0 18 q7 9 0 12" fill="none" stroke="#ef8623" stroke-width="1.8"/>
+        <path d="M217 234 q7 9 0 18 q7 9 0 12" fill="none" stroke="#ef8623" stroke-width="1.8"/>
+        <path d="M297 234 q7 9 0 18 q7 9 0 12" fill="none" stroke="#ef8623" stroke-width="1.8"/>
+        <text x="370" y="252" class="dev-label">FR 热元件</text>
+        <!-- FR 到电机 -->
+        <line x1="144" y1="270" x2="144" y2="275" class="wire" data-net="m-motor"/><line x1="144" y1="275" x2="762" y2="275" class="wire" data-net="m-motor"/>
+        <line x1="224" y1="270" x2="224" y2="300" class="wire" data-net="m-motor"/><line x1="224" y1="300" x2="762" y2="300" class="wire" data-net="m-motor"/>
+        <line x1="304" y1="270" x2="304" y2="325" class="wire" data-net="m-motor"/><line x1="304" y1="325" x2="762" y2="325" class="wire" data-net="m-motor"/>
+        <!-- 电机 -->
+        <circle cx="820" cy="300" r="58" class="motor-circle" id="simMotorCircle"/>
+        <g class="spin-blade" id="simBlade" style="transform-origin:820px 300px">
+          <line x1="820" y1="268" x2="820" y2="332"/>
+          <line x1="788" y1="300" x2="852" y2="300"/>
+          <line x1="797" y1="277" x2="843" y2="323"/>
+          <line x1="843" y1="277" x2="797" y2="323"/>
+        </g>
+        <text x="820" y="307" class="dev-text" text-anchor="middle" id="simMText">M</text>
+        <text x="820" y="388" class="dev-label" text-anchor="middle">三相异步电机</text>
+        <!-- 主电路端子热区 -->
+        <circle cx="144" cy="66" r="11" class="term-hit" data-net="m-src" data-info="三相电源进线、断路器 QF 上端。只要总电源合闸，这一段就带电，检修时必须先断开上级并验电。"/>
+        <circle cx="224" cy="140" r="11" class="term-hit" data-net="m-qf" data-info="断路器出线、接触器 KM 主触点进线端。QF 合闸后持续带电，与接触器是否吸合无关。"/>
+        <circle cx="304" cy="190" r="11" class="term-hit" data-net="m-km" data-info="接触器主触点出线。只有 KM 线圈得电、主触点闭合后，这一段才会带电。"/>
+        <circle cx="144" cy="275" r="11" class="term-hit" data-net="m-motor" data-info="热继电器出线到电机绕组。接触器吸合后三相电流经此进入电机，电机才会旋转。"/>
+        <!-- ===== 控制电路 ===== -->
+        <!-- 左右母线 -->
+        <line x1="100" y1="430" x2="100" y2="690" class="wire" data-net="c-l"/>
+        <line x1="900" y1="430" x2="900" y2="690" class="wire" data-net="c-n"/>
+        <line x1="100" y1="690" x2="900" y2="690" class="wire" data-net="c-n"/>
+        <text x="82" y="428" class="dev-text">L</text>
+        <text x="918" y="428" class="dev-text">N</text>
+        <!-- 主梯级 y=530 -->
+        <line x1="100" y1="530" x2="140" y2="530" class="wire" data-net="c-l"/>
+        <rect x="140" y="513" width="56" height="34" rx="4" fill="var(--panel)" stroke="#9fb0c2" stroke-width="2.2"/>
+        <text x="168" y="535" class="dev-text" text-anchor="middle">FU</text>
+        <line x1="196" y1="530" x2="240" y2="530" class="wire" data-net="c-fu"/>
+        <!-- SB2 停止（常闭） -->
+        <line x1="240" y1="530" x2="280" y2="530" class="wire" data-net="c-sb2"/>
+        <line x1="248" y1="520" x2="260" y2="534" stroke="#9fb0c2" stroke-width="2.2"/>
+        <text x="260" y="505" class="dev-label" text-anchor="middle">SB2 停止</text>
+        <line x1="280" y1="530" x2="320" y2="530" class="wire" data-net="c-sb2"/>
+        <!-- 上支 SB1 启动 -->
+        <line x1="320" y1="530" x2="320" y2="470" class="wire" data-net="c-sb1"/>
+        <line x1="320" y1="470" x2="360" y2="470" class="wire" data-net="c-sb1"/>
+        <circle cx="360" cy="470" r="4" fill="#9fb0c2"/><circle cx="420" cy="470" r="4" fill="#9fb0c2"/>
+        <line x1="360" y1="478" x2="416" y2="462" class="contact-gap sb1-gap"/>
+        <line x1="360" y1="470" x2="420" y2="470" class="wire sb1-close" style="display:none" data-net="c-sb1"/>
+        <text x="390" y="448" class="dev-label" text-anchor="middle">SB1 启动</text>
+        <line x1="420" y1="470" x2="460" y2="470" class="wire" data-net="c-sb1"/>
+        <line x1="460" y1="470" x2="460" y2="530" class="wire" data-net="c-sb1"/>
+        <!-- 下支 KM 自锁 -->
+        <line x1="320" y1="530" x2="320" y2="590" class="wire" data-net="c-seal"/>
+        <line x1="320" y1="590" x2="360" y2="590" class="wire" data-net="c-seal"/>
+        <circle cx="360" cy="590" r="4" fill="#9fb0c2"/><circle cx="420" cy="590" r="4" fill="#9fb0c2"/>
+        <line x1="360" y1="598" x2="416" y2="582" class="contact-gap seal-gap"/>
+        <line x1="360" y1="590" x2="420" y2="590" class="wire seal-close" style="display:none" data-net="c-seal"/>
+        <text x="390" y="622" class="dev-label" text-anchor="middle">KM 自锁触点</text>
+        <line x1="420" y1="590" x2="460" y2="590" class="wire" data-net="c-seal"/>
+        <line x1="460" y1="590" x2="460" y2="530" class="wire" data-net="c-seal"/>
+        <!-- 汇合到 KM 线圈 -->
+        <line x1="460" y1="530" x2="510" y2="530" class="wire" data-net="c-coil-in"/>
+        <rect x="510" y="502" width="66" height="56" rx="7" class="sim-coil-rect" id="simCoilRect"/>
+        <text x="543" y="536" class="dev-text" text-anchor="middle">KM</text>
+        <line x1="576" y1="530" x2="630" y2="530" class="wire" data-net="c-coil-out"/>
+        <!-- FR 常闭（FR 动作断开） -->
+        <line x1="630" y1="530" x2="690" y2="530" class="wire frnc-close" data-net="c-n"/>
+        <line x1="638" y1="520" x2="650" y2="534" class="sim-fr-nc" id="simFrncMark"/>
+        <line x1="636" y1="524" x2="654" y2="538" class="contact-gap frnc-gap" style="display:none"/>
+        <text x="660" y="505" class="dev-label" text-anchor="middle">FR 95-96</text>
+        <line x1="690" y1="530" x2="900" y2="530" class="wire" data-net="c-n"/>
+        <!-- 控制电路端子热区 -->
+        <circle cx="168" cy="530" r="11" class="term-hit" data-net="c-fu" data-info="控制回路熔断器 FU，控制回路短路时先断它，保护线圈和接线，常用 2A 小熔芯。"/>
+        <circle cx="260" cy="530" r="11" class="term-hit" data-net="c-sb2" data-info="停止按钮 SB2 的常闭触点，按下时断开、松手闭合。它串在回路最前面，按停止就切断线圈供电。"/>
+        <circle cx="390" cy="470" r="11" class="term-hit" data-net="c-sb1" data-info="启动按钮 SB1 的常开触点，只在按住的瞬间接通。松手后靠并联的 KM 自锁触点维持，所以电机不会停。"/>
+        <circle cx="390" cy="590" r="11" class="term-hit" data-net="c-seal" data-info="KM 自锁常开触点，与启动按钮并联。线圈得电后它闭合，松开 SB1 电流改走这条线，这就是“自锁”。"/>
+        <circle cx="510" cy="530" r="11" class="term-hit" data-net="c-coil-in" data-info="接触器线圈 A1 端。电流经此进入线圈，线圈得电产生磁场吸合动铁芯。"/>
+        <circle cx="576" cy="530" r="11" class="term-hit" data-net="c-coil-out" data-info="接触器线圈 A2 端出线，再经过 FR 常闭回到零线，形成完整回路。"/>
+        <circle cx="660" cy="530" r="11" class="term-hit" data-net="c-n" data-info="热继电器 FR 的常闭触点 95-96。电机过载时它断开，线圈失电、电机停车，是最后一道保护。"/>
+      </svg>
+    </div>
+    <div class="term-info" id="termInfo"></div>
+    <div class="sim-log" id="simLog"></div>
+    <div class="sim-hint">
+      <b>操作提示：</b>点击图中带橙色反应的端子圆点，可高亮该端子所在的整条接线网络并查看说明；先点“启动”观察自锁，再分别试“停止”和“过载”，对比电流路径的变化。
+    </div>
+  </div>
+</section>
+
+<!-- ===== 视图：习题（JS 渲染） ===== -->
+<section class="view" id="view-quiz">
+  <div class="wrap quiz-page">
+    <span class="section-tag">QUIZ & TROUBLESHOOTING</span>
+    <h2 class="view-title">习题训练与故障排查</h2>
+    <p class="view-sub">选完立刻判分，每道题都附解析。建议先过一遍元件库再来做。</p>
+    <div class="quiz-tabs" id="quizTabs">
+      <button class="quiz-tab on" data-quiz="basic">基础选择题（10）</button>
+      <button class="quiz-tab" data-quiz="fault">故障排查题（5）</button>
+    </div>
+    <div id="quizAnchor"></div>
+    <script>
+    /* ========== 习题数据 ========== */
+    var QUIZ = {
+      basic:[
+        {q:"接触器的“自锁”是利用哪个触点实现的？",
+         options:["三对主触点","常闭辅助触点","与启动按钮并联的自身常开辅助触点","热继电器的触点"],
+         answer:2, explain:"启动按钮松手就断开，必须把 KM 自身的常开辅助触点（如 13-14）并联在启动按钮两端。线圈得电后该触点闭合，松手后电流改走它，回路才保持接通。"},
+        {q:"热继电器在电机控制回路中主要承担什么保护？",
+         options:["短路保护","过载保护","漏电保护","欠压保护"],
+         answer:1, explain:"热继电器靠双金属片受热弯曲动作，反应慢，只能防过载和缺相；短路电流来得太快，要靠断路器或熔断器。"},
+        {q:"三线制接近开关（棕、蓝、黑三根线）的棕色线应该接什么？",
+         options:["0V 电源负","+24V 电源正","PLC 信号输入点","保护地"],
+         answer:1, explain:"标准约定：棕 BN 接 +24V，蓝 BU 接 0V，黑 BK 接 PLC 输入点。记牢“棕正蓝负黑信号”。"},
+        {q:"NPN 型接近开关动作时，黑色信号线输出什么电平？",
+         options:["高电平（+24V）","低电平（0V）","交流 220V","脉冲信号"],
+         answer:1, explain:"NPN 动作时输出端接到 0V，输出低电平，要配漏型 PLC 输入（公共端接 +24V）；PNP 正好相反，输出高电平。"},
+        {q:"按安全规范，急停按钮的触点应该接成？",
+         options:["常开 NO","常闭 NC","常开常闭都可以","直接接主触点"],
+         answer:1, explain:"急停必须接常闭：正常时闭合，拍下或线路断线时都会断开，实现“故障安全”。接常开则断线时急停会失灵。"},
+        {q:"用万用表测量电阻或线路通断时，正确做法是？",
+         options:["带电测量更准确","必须先断电再测","并联在电源两端测","用电流档测量"],
+         answer:1, explain:"带电测电阻，外电压会直接灌入电表造成读数错误甚至烧表。测电阻、通断前必须确认回路断电并放电。"},
+        {q:"熔断器在电路中主要实现什么保护？",
+         options:["过载保护","短路保护","过压保护","失压保护"],
+         answer:1, explain:"短路时电流急剧增大，熔丝瞬间熔断切断电路。它是一次性的短路保护元件，不能替代热继电器的过载保护。"},
+        {q:"要改变三相异步电动机的旋转方向，应该怎么做？",
+         options:["提高电压","对调任意两根相线","更换更大的保险","并联一个电容"],
+         answer:1, explain:"对调任意两根火线，三相相序改变，旋转磁场方向反转，电机就反转。首次送电应点动确认转向。"},
+        {q:"接接触器线圈端子 A1、A2 时，最关键的一点是？",
+         options:["导线颜色要统一","线圈电压必须与控制电源、铭牌一致","必须套线号管","要接在端子排上"],
+         answer:1, explain:"线圈有 AC220V、AC380V、DC24V 等规格，电压接错轻则不吸合、重则烧毁线圈，接线前先看铭牌。"},
+        {q:"24V 开关电源的输出端子标识是？",
+         options:["L 和 N","V+ 和 V-（COM）","13 和 14","95 和 96"],
+         answer:1, explain:"L/N 是 220V 交流输入；V+ 输出 +24V、V- 或 COM 输出 0V，柜内直流设备的 0V 统一接到 V-。"}
+      ],
+      fault:[
+        {q:"按下启动按钮，接触器完全没有吸合声、电机也不动，第一步应该先查什么？",
+         options:["电机轴承是否卡死","控制回路有没有电、熔断器 FU 是否熔断","电机绝缘电阻","机械皮带松紧"],
+         answer:1, explain:"接触器连吸合声都没有，说明线圈根本没得电，问题在控制回路：先查电源、FU、停止按钮和接线，而不是先拆电机。"},
+        {q:"按下启动后接触器有吸合声，但电机不转只发出“嗡嗡”声，最可能的原因是？",
+         options:["控制回路断电","主回路缺相","启动按钮损坏","指示灯烧坏"],
+         answer:1, explain:"接触器吸合说明控制部分正常；电机嗡嗡响不转是典型缺相，剩余两相电流很大，必须立即断电，查主触点、断路器和接线。"},
+        {q:"电机能启动，但运行几分钟热继电器就跳闸，复位后再开仍跳，下列哪种情况最不可能？",
+         options:["整定电流调得偏小","机械负载过重","运行中缺相、电流不平衡","运行指示灯瓦数太大"],
+         answer:3, explain:"热继电器跳闸说明主回路电流偏大，应查整定值、机械过载和三相平衡；指示灯并联在信号回路，不影响主回路电流。"},
+        {q:"按下停止按钮后电机仍然继续转动，最可能的故障是？",
+         options:["接触器主触点粘连","控制电源电压太低","控制回路熔断器熔断","线号管编号错误"],
+         answer:0, explain:"触点因过载烧蚀焊死，线圈失电也无法断开，电机继续得电。此时应立即断总电源，更换接触器，严禁带故障运行。"},
+        {q:"漏电保护器一合闸就跳，断开全部下级回路后仍然跳，最可能的原因是？",
+         options:["漏保本身损坏或进线侧异常","电机过载","机械皮带松动","指示灯太亮"],
+         answer:0, explain:"下级全断开还跳，故障与负载无关，应查漏保本体、进线绝缘和 N 线接线；确认外部无问题后更换漏保。"}
+      ]
+    };
+    </script>
+  </div>
+</section>
+
+<!-- ===== 视图：职业规划（JS 渲染） ===== -->
+<!-- ===== 视图：理论知识（JS 渲染） ===== -->
+<section class="view" id="view-theory">
+  <div class="wrap">
+    <div class="theory-layout">
+      <div class="theory-cat" id="theoryCat"></div>
+      <div>
+        <span class="section-tag">THEORY KNOWLEDGE</span>
+        <h2 class="view-title">电工 / PLC 系统理论知识</h2>
+        <p class="view-sub">从电的基础到 PLC、通信、安全，按学习顺序整理；点开知识点看大白话讲解，配合元件库和实操一起学。</p>
+        <div id="theoryList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="view-career">
+  <div class="wrap career-page">
+    <span class="section-tag">CAREER ROADMAP</span>
+    <h2 class="view-title">电工 → PLC 工程师 · 职业规划</h2>
+    <p class="view-sub">结合江门 / 鹤山本地就业环境、中专学历、低压电工在考的实际情况定制。</p>
+    <!-- 模块1：路径时间轴 -->
+    <div class="career-sec">
+      <h3><span class="n">1</span>电工 → PLC 工程师 8 年路径</h3>
+      <p class="desc">核心原则：先靠硬技术解决吃饭问题，再用项目经验而不是证书去敲 PLC 的门。每一步都要能在简历上写出具体干过的活。</p>
+      <div class="timeline">
+        <div class="tl-row hot">
+          <span class="tl-dot"></span>
+          <span class="tl-time">现在 · 0-3 月</span>
+          <div class="tl-card">
+            <h4>拿下低压电工特种作业操作证</h4>
+            <p>完成培训机构课程，重点练安全规范、万用表使用、电机正反转与自锁接线，一次通过理论+实操。</p>
+            <span class="kpi">里程碑：持证上岗</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <span class="tl-time">0-1 年</span>
+          <div class="tl-card">
+            <h4>设备售后 / 维修电工上岗（联塑机器类）</h4>
+            <p>把图纸上的符号和现场端子对上号，熟练接线、压端子、看接触器回路、操作变频器面板，养成断电验电习惯。</p>
+            <span class="kpi">目标：独立完成常规接线与换件</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <span class="tl-time">1-2 年</span>
+          <div class="tl-card">
+            <h4>独立处理故障，啃透传感器与气动</h4>
+            <p>能独立排查缺相、过载、触点粘连；吃透接近/光电开关 NPN/PNP 接线、电磁阀与气缸，开始对照设备看 PLC 程序。</p>
+            <span class="kpi">目标：故障排查有清晰思路</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <span class="tl-time">2-3 年</span>
+          <div class="tl-card">
+            <h4>系统学 PLC，争取参与改造项目</h4>
+            <p>先汇川（H5U/AM，国产资料多、本地设备多）再西门子（S7-200 SMART / S7-1200），在公司主动接小改造，哪怕免费帮忙也要攒作品。</p>
+            <span class="kpi">目标：独立写出可运行的小程序</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <span class="tl-time">3-5 年</span>
+          <div class="tl-card">
+            <h4>转调试工程师，补成人大专</h4>
+            <p>独立负责单机或小产线调试，能对接机械、工艺；同步读机电/电气自动化成人大专，补学历门槛。</p>
+            <span class="kpi">目标：独立负责项目 + 大专在读</span>
+          </div>
+        </div>
+        <div class="tl-row">
+          <span class="tl-dot"></span>
+          <span class="tl-time">5-8 年</span>
+          <div class="tl-card">
+            <h4>非标自动化设计 / 大厂调试岗</h4>
+            <p>能独立选型、出电气原理图、写程序、带项目调试，向电气设计或高级调试工程师发展，收入和选择权同步上台阶。</p>
+            <span class="kpi">目标：从“会干活”到“能设计”</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 模块2：分阶段技能清单 -->
+    <div class="career-sec">
+      <h3><span class="n">2</span>分阶段知识技能清单（学会的 + 了解的）</h3>
+      <p class="desc">每个阶段分"动手学会"和"了解知道"两类，底部是达标线；对照本库元件库、实操和理论模块逐项打勾，别跳级。</p>
+      <div class="skill-stage">
+        <div class="ss-head"><span class="ss-no">STAGE 0</span><h4>入门准备 · 考证期</h4><span class="ss-time">0-3 月</span></div>
+        <div class="ss-body">
+          <div class="ss-col must"><h5>动手学会</h5><ul>
+            <li>安全规范：停电、验电、挂牌上锁</li>
+            <li>万用表测电压、查通断</li>
+            <li>区分常开/常闭，接出自锁、互锁回路</li>
+            <li>电机正反转接线</li>
+          </ul></div>
+          <div class="ss-col know"><h5>了解知道</h5><ul>
+            <li>电压、电流、电阻与欧姆定律</li>
+            <li>交直流、单相 220V 与三相 380V</li>
+            <li>触电原理与安全电压</li>
+          </ul></div>
+        </div>
+        <div class="ss-pass"><b>达标线：</b>拿到低压电工证，能独立接出自锁回路并讲清原理。</div>
+      </div>
+      <div class="skill-stage">
+        <div class="ss-head"><span class="ss-no">STAGE 1</span><h4>上岗接线 · 售后/维修电工</h4><span class="ss-time">0-1 年</span></div>
+        <div class="ss-body">
+          <div class="ss-col must"><h5>动手学会</h5><ul>
+            <li>识别元件、压端子、规范接线和打线号</li>
+            <li>看懂原理图、接线图，先主后控</li>
+            <li>空开/接触器/热继/按钮/指示灯接线</li>
+            <li>开关电源 24V，变频器面板操作与基本参数</li>
+          </ul></div>
+          <div class="ss-col know"><h5>了解知道</h5><ul>
+            <li>电机结构、铭牌、绝缘与 IP 防护</li>
+            <li>接地、接零与 PE 线</li>
+            <li>线径载流量与元件选型</li>
+          </ul></div>
+        </div>
+        <div class="ss-pass"><b>达标线：</b>独立完成常规换件和接线，能看懂简单控制回路。</div>
+      </div>
+      <div class="skill-stage">
+        <div class="ss-head"><span class="ss-no">STAGE 2</span><h4>故障排查 · 传感器与气动</h4><span class="ss-time">1-2 年</span></div>
+        <div class="ss-body">
+          <div class="ss-col must"><h5>动手学会</h5><ul>
+            <li>缺相、过载、短路、触点粘连排查</li>
+            <li>接近/光电 NPN/PNP 三线接线</li>
+            <li>电磁阀、气缸、气动三联件</li>
+            <li>模拟量 0-10V/4-20mA，编码器接线</li>
+          </ul></div>
+          <div class="ss-col know"><h5>了解知道</h5><ul>
+            <li>RS-485 与 Modbus 概念</li>
+            <li>开关量与模拟量区别</li>
+            <li>双金属片、灭弧等电器原理</li>
+          </ul></div>
+        </div>
+        <div class="ss-pass"><b>达标线：</b>常见故障有清晰排查思路，能独立处理不靠师傅。</div>
+      </div>
+      <div class="skill-stage">
+        <div class="ss-head"><span class="ss-no">STAGE 3</span><h4>PLC 上手 · 编程与 HMI</h4><span class="ss-time">2-3 年</span></div>
+        <div class="ss-body">
+          <div class="ss-col must"><h5>动手学会</h5><ul>
+            <li>汇川/西门子编程软件操作与程序下载</li>
+            <li>梯形图：位逻辑、定时、计数、置位复位</li>
+            <li>IO 分配、空机与带载调试</li>
+            <li>触摸屏 HMI 组态、与 PLC 通信</li>
+            <li>变频器多段速/通信控制</li>
+          </ul></div>
+          <div class="ss-col know"><h5>了解知道</h5><ul>
+            <li>PLC 扫描原理、源型与漏型</li>
+            <li>Modbus 寄存器与地址</li>
+            <li>伺服、步进基本概念</li>
+          </ul></div>
+        </div>
+        <div class="ss-pass"><b>达标线：</b>独立写出可运行的小程序并调通，攒下改造作品。</div>
+      </div>
+      <div class="skill-stage">
+        <div class="ss-head"><span class="ss-no">STAGE 4</span><h4>调试与设计 · 独立带项目</h4><span class="ss-time">3-8 年</span></div>
+        <div class="ss-body">
+          <div class="ss-col must"><h5>动手学会</h5><ul>
+            <li>伺服/步进调试：脉冲、增益、定位</li>
+            <li>安全继电器与安全回路</li>
+            <li>工业以太网 Profinet/EtherCAT</li>
+            <li>电气选型、出原理图、独立带项目</li>
+            <li>多设备联调，对接机械与工艺</li>
+          </ul></div>
+          <div class="ss-col know"><h5>了解知道</h5><ul>
+            <li>液压基础</li>
+            <li>网络架构与项目管理</li>
+            <li>成本、工艺与方案设计</li>
+          </ul></div>
+        </div>
+        <div class="ss-pass"><b>达标线：</b>独立负责单机/产线调试，能选型、出图、写程序。</div>
+      </div>
+    </div>
+
+    <!-- 模块3：考证路径 -->
+    <div class="career-sec">
+      <h3><span class="n">3</span>考证路径（按优先级，别乱花钱）</h3>
+      <p class="desc">证书是敲门砖，不是终点。低压电工证是刚需，其余按岗位需要再考，PLC 厂商认证远不如真实项目有说服力。</p>
+      <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th style="width:17%">证书</th><th style="width:16%">发证 / 性质</th><th style="width:20%">报考条件</th><th style="width:14%">建议时间</th><th style="width:15%">费用参考</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>低压电工证</b><br><span class="tag-pill pill-r">刚需</span></td>
+            <td>应急管理部<br>特种作业操作证</td>
+            <td>年满 18 岁、身体健康，培训后考试</td>
+            <td>现在</td>
+            <td>1000~1800 元</td>
+            <td>3 年复审一次、6 年换证；无证上岗属违法，上岗前必须拿到</td>
+          </tr>
+          <tr>
+            <td><b>高压电工证</b></td>
+            <td>应急管理部<br>特种作业操作证</td>
+            <td>可直接报考，有低压基础更轻松</td>
+            <td>1~2 年后</td>
+            <td>1500~2500 元</td>
+            <td>想进配电房、大厂动力部门再考，普通设备岗用不上</td>
+          </tr>
+          <tr>
+            <td><b>电工技能等级证</b><br>五级 / 四级 / 三级</td>
+            <td>人社备案评价机构<br>职业技能等级</td>
+            <td>按工龄和现有等级逐级申报</td>
+            <td>工作 1~3 年</td>
+            <td>几百~2000 元</td>
+            <td>部分城市可用于积分落户、技能补贴和涨薪，按当地政策来</td>
+          </tr>
+          <tr>
+            <td><b>成人大专</b><br>机电一体化 / 电气自动化</td>
+            <td>成人高考 / 开放大学<br>国家承认学历</td>
+            <td>年满 18 岁即可报名</td>
+            <td>2~3 年内</td>
+            <td>总费用 6000~10000 元</td>
+            <td>2.5 年学制，补学历短板，后期跳槽大厂、评职称的门槛</td>
+          </tr>
+          <tr>
+            <td><b>PLC 培训认证</b></td>
+            <td>西门子 SCE / 汇川等<br>厂商或机构</td>
+            <td>无硬性门槛</td>
+            <td>学 PLC 时</td>
+            <td>差异大</td>
+            <td>非强制，HR 更看重你能讲清的项目和可演示的程序，别为“证书”报高价班</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout info">
+        <b>费用口径：</b>上表为珠三角常见区间的经验参考，各地培训机构、政策不同，报名前以当地应急管理部门备案机构和人社局最新通知为准，先查机构资质再交钱。
+      </div>
+    </div>
+    <!-- 模块4：岗位推荐 -->
+    <div class="career-sec">
+      <h3><span class="n">4</span>岗位推荐（江门 / 佛山 / 鹤山方向）</h3>
+      <p class="desc">按“是否贴近 PLC 目标”排序，第一份工作工资可以低一点，但一定要能接触到设备和图纸，别选纯重复或纯安逸的岗。</p>
+      <div style="overflow-x:auto">
+      <table class="data-table">
+        <thead><tr><th style="width:17%">岗位</th><th style="width:12%">门槛</th><th style="14%">月薪参考</th><th style="width:25%">优势</th><th style="width:20%">短板 / 注意</th><th>推荐度</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>自动化调试学徒</b></td>
+            <td>电工证 + 能吃苦</td>
+            <td>4000~6000</td>
+            <td>直接跟项目、接触 PLC 和传感器，路径最短</td>
+            <td>起步低、加班出差多，要主动跟师傅学</td>
+            <td><span class="tag-pill pill-g">最贴近目标</span></td>
+          </tr>
+          <tr>
+            <td><b>设备售后调试员</b><br>（联塑机器类）</td>
+            <td>电工证，新手可带</td>
+            <td>5000~8000</td>
+            <td>接触整机接线、故障多、成长快，简历含金量高</td>
+            <td>出差跑客户多，对沟通和独立解决问题要求高</td>
+            <td><span class="tag-pill pill-g">优先投递</span></td>
+          </tr>
+          <tr>
+            <td><b>工厂维修电工</b></td>
+            <td>电工证</td>
+            <td>5000~7000</td>
+            <td>稳定、设备故障类型多，练排查思路</td>
+            <td>部分要倒班，若设备老旧可能学不到新东西</td>
+            <td><span class="tag-pill pill-b">可以做</span></td>
+          </tr>
+          <tr>
+            <td><b>装配接线电工</b></td>
+            <td>会看图纸、接线规范</td>
+            <td>4500~7000</td>
+            <td>短期快速练接线、认元件、看懂成套图纸</td>
+            <td>计件重复、接触程序少，建议做 6~12 个月就转</td>
+            <td><span class="tag-pill pill-y">练手过渡</span></td>
+          </tr>
+          <tr>
+            <td><b>物业 / 商场电工</b></td>
+            <td>电工证</td>
+            <td>4000~5000</td>
+            <td>工作安逸、环境好</td>
+            <td>技术浅、多为换灯修插座，离 PLC 目标越来越远</td>
+            <td><span class="tag-pill pill-r">不建议长做</span></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+      <div class="callout warn">
+        <b>关于背景调查：</b>中小工厂、设备商的技术岗大多不做严格背调，先把技术和干活态度立住；国企、军工、金融、安保及部分外派岗位常要求无犯罪记录，不必硬投。招聘方没问就不必主动提，被直接问或要求开证明时如实回答，撒谎被查到会直接解除合同，更被动。
+      </div>
+    </div>
+
+    <!-- 模块5：面试话术 -->
+    <div class="career-sec">
+      <h3><span class="n">5</span>面试话术（点开看，按自己语气改）</h3>
+      <p class="desc">话术是骨架不是台词，背熟后用自己的话自然说，重点是真诚、稳定、肯学，别装老师傅。</p>
+
+      <div class="script-card">
+        <button class="script-q">自我介绍（30 秒版）<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“面试官好，我叫 XXX，今年 30 岁，本地人居多，能长期稳定做。刚考下低压电工证，系统学过接触器自锁、电机正反转这些基础回路，万用表和基础接线能上手。我是奔着技术方向来的，愿意从接线、售后这些基础活干起，边干边学 PLC。”</div>
+          <p class="note">控制在 30 秒内，只讲和岗位相关的：有证、能上手、稳定、肯学，不扯无关经历。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">为什么转行 / 30 岁才入行？<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“之前走了些弯路，也想清楚了自己要什么。电工和自动化是越老越吃香的硬技术，不靠吃青春饭，我学得进也坐得住。年纪大一点反而更稳，不会频繁跳槽，就想在这一行扎下去。”</div>
+          <p class="note">不回避年龄，把它转成“稳定、有定力”的优势，语气平和，别露出自卑或对抗。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">没有相关经验，怎么答？<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“现场经验确实还在积累，但我不是零基础：培训时电机正反转、自锁互锁这些回路都自己接通过，图纸符号和端子我对得上。给我一段时间跟机，基础活我能很快独立，前期安排什么活我都愿意干。”</div>
+          <p class="note">用“培训实操 + 学习能力”代替经验，主动表态愿意从基础做起，降低对方的培养顾虑。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">期望薪资怎么说？<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“我更看重能不能学到东西、有没有上手机会。新手阶段按公司这个岗位的标准给就行，我能接受；等我能独立干活、承担更多了，再根据表现调整。”</div>
+          <p class="note">第一份工作别把价谈死，先争取入场；提前查好本地行情，心里有个不低于行情的底线。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">被问未来职业规划<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“短期先把电工基础和现场故障处理练扎实，1~2 年内把传感器、气动和变频器吃透；之后往 PLC 调试方向走，先国产后西门子，希望能在公司内部成长起来，长期跟着公司发展。”</div>
+          <p class="note">让对方看到你有规划但不浮躁，落脚点放在“愿意长期在这家公司干”，而不是骑驴找马。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">被直接问到犯罪记录<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“我年轻的时候犯过错、也承担了法律后果，这件事已经彻底过去了。出来后我一直在学技术、考电工证，就是想靠手艺走正路、稳定下来。我不会回避这段经历，也会用实际干活证明自己靠谱。”</div>
+          <p class="note"><b>注意：</b>只有在对方明确问起或要求无犯罪记录证明时才需要说；回答简短、不编造细节、不推卸责任，重点放在“已了结、现在稳定、走正路”。若岗位硬性要求无犯罪记录，坦然接受、另投合适岗位。</p>
+        </div>
+      </div>
+
+      <div class="script-card">
+        <button class="script-q">面试结尾“你有什么想问的？”<span class="arrow">▾</span></button>
+        <div class="script-a">
+          <div class="say">“想请教下：这个岗位日常主要负责哪些设备？新人前期有没有师傅带？公司里有没有接触 PLC、调试的机会？”</div>
+          <p class="note">问成长机会和工作内容，既显上进，又能帮你判断这岗是不是真能学到东西；别一上来只问加班和放假。</p>
+        </div>
+      </div>
+    </div>
+    <!-- 模块6：学习问答 -->
+    <div class="career-sec">
+      <h3><span class="n">6</span>学习里的细碎疑问（大白话版）</h3>
+      <p class="desc">点开看答案，都是新手绕不开的概念，先把这些搞懂，后面学 PLC 会顺很多。</p>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q1</span>常开、常闭到底怎么区分？</button>
+        <div class="faq-a">“常开 NO”在没通电、没按下时是断开的，动作以后才接通，比如启动按钮、接触器主触点；“常闭 NC”平时是接通的，动作以后才断开，比如停止按钮、急停。一句话：常开平时不通、常闭平时通。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q2</span>自锁和互锁有什么区别？</button>
+        <div class="faq-a">自锁是“自己的触点维持自己的线圈一直通电”，所以松开启动按钮电机也不停；互锁用在正反转这种地方，把两个接触器的常闭触点互相串到对方回路里，保证同一时间只有一个能吸合，防止两个同时闭合造成三相短路。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q3</span>NPN 和 PNP 怎么记才不混？</button>
+        <div class="faq-a">先记接线：棕正（+24V）、蓝负（0V）、黑信号。再记输出：NPN 动作时黑线变 0V，输出低电平；PNP 动作时黑线变 +24V，输出高电平。配套关系：NPN 配漏型输入，PNP 配源型输入。买传感器前先看 PLC 输入是哪种，别买反。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q4</span>漏型、源型输入是什么？</button>
+        <div class="faq-a">区别在 PLC 输入公共端 COM 接哪里：漏型 COM 接 +24V，传感器动作时把输入点拉到 0V，配 NPN，国产和日系设备默认漏型居多；源型 COM 接 0V，动作时给输入点 +24V，配 PNP。新手先把“漏型 + NPN”这一套用熟。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q5</span>零线和地线有什么区别？能混用吗？</button>
+        <div class="faq-a">零线 N 是工作线，和火线构成 220V 回路，正常有电流；地线 PE 是保护线，接设备外壳，平时没电流，漏电时把电导入大地保命。两者绝不能混用，漏保后面的零线一旦接地，漏保立刻跳闸。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q6</span>线号、端子号怎么看？</button>
+        <div class="faq-a">线号管套在导线两端，同一根线两端编号相同，拿着图纸按号就能查线，比一根根捋快得多；端子号直接印在元件上，比如 13-14、A1、A2。实物端子号和图纸符号是一一对应的，接线前先核号，接完再核一遍。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q7</span>PLC 的扫描周期是什么？</button>
+        <div class="faq-a">PLC 一圈圈不停地循环：先读一遍所有输入状态，再从上到下执行一遍程序，最后刷新输出，一圈通常就几毫秒。所以现场信号变了，最快也要等下一圈才反应，这是它和纯继电器硬接线的一个区别。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q8</span>继电器输出和晶体管输出怎么选？</button>
+        <div class="faq-a">继电器输出内部是机械触点，交直流都能带、电流大，但动作慢、有寿命，适合普通开关控制，新手友好；晶体管只能带直流、电流小，但动作快、寿命长，要发高速脉冲控制步进、伺服电机就必须用它。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q9</span>星三角启动是干嘛的？</button>
+        <div class="faq-a">大电机直接启动电流能到额定的 5~7 倍，对电网和机械冲击大。星三角启动时先接成星形，让每相绕组只承受较低电压、电流小，等转起来再切成三角形全压运行，用切换接法降低启动冲击。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q10</span>变频器和 PLC 有什么区别？</button>
+        <div class="faq-a">PLC 是“大脑”，负责逻辑判断、按条件发指令；变频器是专门管电机调速的执行设备，接收 PLC 给的信号，靠改变频率来改变电机转速。它们是搭档关系，谁也替代不了谁，常一起出现在一个柜里。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q11</span>接触器一直嗡嗡响是怎么回事？</button>
+        <div class="faq-a">常见三个原因：铁芯吸合端面有灰尘油污、铁芯上的短路环断裂、电源电压偏低吸合不实。先断电清洁铁芯端面，再查短路环和供电电压，长期异响会让线圈过热烧毁，别硬拖着用。</div>
+      </div>
+
+      <div class="faq-card">
+        <button class="faq-q"><span class="qn">Q12</span>控制回路用 24V 还是 220V？</button>
+        <div class="faq-a">220V 接线简单、老设备多，但柜内带强电、检修风险高；24V 直流安全，PLC、传感器、电磁阀基本都是 24V，是现代控制柜主流，由开关电源统一供电。新手做项目优先按 24V 体系学，同时要看懂老设备的 220V 回路。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 元件详情弹层 ===== -->
+<div class="modal-mask" id="modalMask">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div><h3 id="mTitle"></h3><span class="code" id="mCode"></span></div>
+      <button class="modal-close" id="mClose" aria-label="关闭">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
+<!-- 静态资产清单：保证发布扫描可识别全部图片路径，本地运行无视觉影响 -->
+<div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none">
+  <img src="assets/mcb.jpg" alt=""><img src="assets/rccb.jpg" alt=""><img src="assets/fuse.jpg" alt="">
+  <img src="assets/contactor.jpg" alt=""><img src="assets/thermal-relay.jpg" alt=""><img src="assets/relay.jpg" alt="">
+  <img src="assets/pushbutton.jpg" alt=""><img src="assets/estop.jpg" alt=""><img src="assets/limit-switch.jpg" alt="">
+  <img src="assets/indicator.jpg" alt=""><img src="assets/proximity.jpg" alt=""><img src="assets/photoelectric.jpg" alt="">
+  <img src="assets/power-supply.jpg" alt=""><img src="assets/plc.jpg" alt=""><img src="assets/terminal-block.jpg" alt="">
+  <img src="assets/solenoid.jpg" alt=""><img src="assets/motor.jpg" alt=""><img src="assets/multimeter.jpg" alt="">
+  <img src="assets/vfd.jpg" alt=""><img src="assets/servo.jpg" alt=""><img src="assets/stepper.jpg" alt="">
+  <img src="assets/hmi.jpg" alt=""><img src="assets/encoder.jpg" alt=""><img src="assets/safety-relay.jpg" alt="">
+</div>
+
+<footer class="footer">
+  电工 / PLC 图文资料库 · 纯静态离线文件 · 内容为教学参考，实际作业请遵守现场规程并持证上岗
+</footer>
+
+<script>
+/* ========== 路由 ========== */
+var ROUTES = ["home","components","simulator","quiz","theory","career"];
+function go(name){
+  if (ROUTES.indexOf(name) < 0) name = "home";
+  ROUTES.forEach(function(r){
+    var v = document.getElementById("view-"+r);
+    if (v) v.classList.toggle("active", r === name);
+  });
+  document.querySelectorAll(".nav-btn").forEach(function(b){
+    b.classList.toggle("on", b.getAttribute("data-route") === name);
+  });
+  if (location.hash !== "#/"+name) location.hash = "#/"+name;
+  window.scrollTo(0,0);
+}
+document.getElementById("nav").addEventListener("click", function(e){
+  var b = e.target.closest(".nav-btn");
+  if (b) go(b.getAttribute("data-route"));
+});
+document.addEventListener("click", function(e){
+  var g = e.target.closest("[data-go]");
+  if (g) go(g.getAttribute("data-go"));
+});
+function syncHash(){
+  var h = location.hash.replace("#/","");
+  if (ROUTES.indexOf(h) >= 0) go(h);
+}
+window.addEventListener("hashchange", syncHash);
+
+/* ========== 元件数据 ========== */
+var CATS = [
+  {id:"all", name:"全部元件"},
+  {id:"protective", name:"保护电器"},
+  {id:"relay", name:"继电器类"},
+  {id:"switch", name:"主令开关"},
+  {id:"sensor", name:"传感与信号"},
+  {id:"control", name:"电源与PLC"},
+  {id:"machine", name:"执行与仪表"},
+  {id:"advanced", name:"进阶传动与安全"}
+];
+
+var COMPONENTS = [
+/* ---- 保护电器 ---- */
+{
+  id:"mcb", cat:"protective", code:"QF", name:"微型断路器（空气开关）", img:"assets/mcb.jpg", sym:"mcb",
+  summary:"配电箱总闸门，过载、短路时自动跳闸断电。",
+  func:[
+    "正常情况下手动分合电源，是回路的第一道开关",
+    "过载时内部双金属片受热弯曲，延时跳闸；短路时电磁脱扣器瞬间（毫秒级）跳闸",
+    "C 型用于照明、普通配电；D 型抗启动冲击，用于电机回路"
+  ],
+  wiring:[
+    "上进下出：上端 1/3/5 接电源，下端 2/4/6 接负载，35mm 标准导轨安装",
+    "电机回路选 D 型，额定电流按电机额定电流约 1.5~2.5 倍选；普通回路选 C 型",
+    "多极（1P/2P/3P/4P）按火线根数和是否带零线选择，端子螺丝必须压紧"
+  ],
+  faults:[
+    {t:"合不上闸", w:1, x:"先查下级是否短路、漏保是否动作，禁止强行反复合闸"},
+    {t:"频繁跳闸", w:0, x:"容量选小或负载侧故障，用钳形表测实际电流再判断"},
+    {t:"端子发热烧焦", w:1, x:"螺丝没压紧或线径不够，断电后重新压接或更换"}
+  ],
+  terminals:[["1/3/5","电源进线（上）"],["2/4/6","负载出线（下）"],["C/D 标识","脱扣曲线类型"],["6000","额定分断能力 6kA"]]
+},
+{
+  id:"rccb", cat:"protective", code:"QF（漏电型）", name:"漏电保护器", img:"assets/rccb.jpg", sym:"rccb",
+  summary:"漏电、触电时 0.1 秒内跳闸，保命用的保护电器。",
+  func:[
+    "实时比较火线与零线的电流矢量和，正常时两者相等、差值为零",
+    "发生人身触电或设备漏电，差值超过动作值（家用 30mA）即在 0.1s 内跳闸",
+    "带过流保护的叫 RCBO，只测漏电的叫 RCCB"
+  ],
+  wiring:[
+    "2P 漏保火线、零线都要穿过，N 端子专接零线，不可接反",
+    "漏保后的零线不能再接地，也不能与其他回路零线混用，否则误跳",
+    "每月按一次 T 试验按钮，验证跳闸机构是否可靠"
+  ],
+  faults:[
+    {t:"试验按钮不动作", w:1, x:"机构或内部电路损坏，直接更换，不能继续当保护用"},
+    {t:"潮湿天气就跳", w:1, x:"线路或设备绝缘下降，用绝缘电阻表分段排查"},
+    {t:"一合闸就跳", w:0, x:"断开全部下级回路，逐个合闸定位漏电点"}
+  ],
+  terminals:[["L","火线进出"],["N","零线进出（带 N 标识）"],["T 按钮","每月试验一次"],["30mA / 0.1s","动作电流与时间"]]
+},
+{
+  id:"fuse", cat:"protective", code:"FU", name:"熔断器（保险管）", img:"assets/fuse.jpg", sym:"fuse",
+  summary:"结构最简单的短路保护，电流过大熔丝即熔断。",
+  func:[
+    "串联在回路中，短路或严重过载时熔丝（熔芯）发热熔断，切断电路",
+    "控制回路常用 RT28 圆筒熔芯，主回路大电流用 NT 刀型熔断器",
+    "属于一次性器件，熔断后必须更换"
+  ],
+  wiring:[
+    "串联接入被保护回路，控制回路常用 2A、6A 小规格熔芯",
+    "更换必须同电压、同电流规格，严禁用铜丝、铁丝代替",
+    "底座夹片要保持弹性，防止接触不良打火"
+  ],
+  faults:[
+    {t:"熔芯反复熔断", w:1, x:"先排除下级短路点再更换，不能换上就送电"},
+    {t:"熔芯没断但没电", w:1, x:"底座夹片松动接触不良，更换底座或打磨紧固"},
+    {t:"熔芯发烫", w:1, x:"规格选小或接触电阻过大，核对负载电流"}
+  ],
+  terminals:[["两端金属帽","串联进回路，无极性"],["gG 标识","全范围保护（通用型）"],["500V","额定电压"],["规格字","额定电流，如 40A"]]
+},
+/* ---- 继电器类 ---- */
+{
+  id:"contactor", cat:"relay", code:"KM", name:"交流接触器", img:"assets/contactor.jpg", sym:"coil",
+  summary:"用小电流控制大电流的电磁开关，电机控制的核心。",
+  func:[
+    "线圈得电产生磁场，吸合动铁芯，带动主触点闭合，接通电机等大功率负载",
+    "辅助触点用于自锁、互锁、联锁和运行信号",
+    "失电后自动释放，是远程控制、自动控制的执行元件"
+  ],
+  wiring:[
+    "主触点 1/L1-2/T1、3/L2-4/T2、5/L3-6/T3，上进下出",
+    "线圈端子 A1、A2，电压必须与铭牌一致（AC220V/AC380V/DC24V），接错会烧线圈或不吸合",
+    "辅助触点 13-14 为常开 NO（常用于自锁），21-22 为常闭 NC"
+  ],
+  faults:[
+    {t:"通电不吸合", w:1, x:"查线圈电压是否正常、线圈是否断路、机械部分是否卡死"},
+    {t:"吸合后嗡嗡响", w:1, x:"铁芯端面有油污灰尘、短路环断裂或电源电压过低"},
+    {t:"触点粘连", w:1, x:"频繁启停或过载烧蚀，断电后电机仍转，必须更换触点或整机"},
+    {t:"线圈烧毁", w:1, x:"电压不符或长期欠压导致吸合不实、线圈电流过大"}
+  ],
+  terminals:[["1/3/5 与 2/4/6","三对主触点"],["A1 / A2","线圈两端，核对电压"],["13-14","常开辅助触点 NO"],["21-22","常闭辅助触点 NC"]]
+},
+{
+  id:"thermal-relay", cat:"relay", code:"FR", name:"热继电器", img:"assets/thermal-relay.jpg", sym:"thermal",
+  summary:"电机过载保护，过载时断开控制回路让接触器释放。",
+  func:[
+    "三相电流流过双金属片，过载时双金属片受热弯曲，推动机构动作",
+    "串在控制回路里的常闭触点 95-96 断开，使接触器线圈失电、电机停车",
+    "主要防过载、缺相，不能代替短路保护（短路靠断路器/熔断器）"
+  ],
+  wiring:[
+    "主回路 2/T1、4/T2、6/T3 串在接触器与电机之间，常见型号直接插接在接触器下方",
+    "整定电流旋钮调到电机额定电流值（电机铭牌 5A 就调到 5A）",
+    "95-96 常闭串控制回路；97-98 常开可接故障报警灯；蓝色 RESET 复位，红色 STOP 测试"
+  ],
+  faults:[
+    {t:"电机烧了却不动作", w:1, x:"整定电流调得过大或型号选错，重新按额定电流整定"},
+    {t:"正常运行老跳闸", w:1, x:"整定值偏小、启动时间过长或运行缺相，逐项排查"},
+    {t:"动作后无法复位", w:0, x:"双金属片未冷却，等 2~3 分钟再复位，并检查复位方式拨杆"}
+  ],
+  terminals:[["2/4/6（T1/T2/T3）","主回路串接"],["95-96","常闭 NC，串控制回路"],["97-98","常开 NO，接报警"],["蓝色旋钮","整定电流调节"]]
+},
+{
+  id:"relay", cat:"relay", code:"KA", name:"中间继电器", img:"assets/relay.jpg", sym:"coil",
+  summary:"扩展触点数量与信号转换，PLC 输出的常见搭档。",
+  func:[
+    "一路线圈驱动多组触点，用来扩展触点数量、放大带载能力",
+    "实现信号隔离、电平转换，常用在 PLC 输出与接触器、电磁阀之间",
+    "体积小、触点多，适合控制柜内密集安装"
+  ],
+  wiring:[
+    "8 脚为 2 开 2 闭，14 脚为 4 开 4 闭；线圈端子一般为 13-14",
+    "DC24V 线圈最常见，部分直流型号要注意正负极",
+    "底座带手动测试拨杆，不通电也能手动验证触点和下级回路"
+  ],
+  faults:[
+    {t:"带不动负载", w:1, x:"触点容量一般只有 5A，直接带大负载会烧，应驱动接触器再带大负载"},
+    {t:"指示灯不亮、不动作", w:1, x:"查线圈电压、底座压接是否松动"},
+    {t:"偶尔失灵", w:1, x:"底座簧片氧化接触不良，清洁或更换底座"}
+  ],
+  terminals:[["13-14","线圈两端，核对 DC24V/AC220V"],["1/5/9 等","公共端 COM"],["3/7/11 等","常闭 NC"],["4/8/12 等","常开 NO"]]
+}
+,
+/* ---- 主令开关 ---- */
+{
+  id:"pushbutton", cat:"switch", code:"SB", name:"按钮开关", img:"assets/pushbutton.jpg", sym:"nonc",
+  summary:"人工发指令的主令电器，绿启动、红停止。",
+  func:[
+    "按下时触点动作、松手弹簧复位（瞬动型），用来给接触器或 PLC 发启动/停止指令",
+    "绿色、黑色常开触点 NO 一般做启动；红色常闭触点 NC 一般做停止",
+    "触点模块可叠加，一个按钮可同时带多组 NO/NC"
+  ],
+  wiring:[
+    "常开 NO：13-14，按下接通、松手断开；常闭 NC：11-12，按下断开",
+    "标准 22mm 开孔，触点模块卡在按钮头部后方",
+    "接到 PLC 输入时配合公共端（COM）构成输入回路"
+  ],
+  faults:[
+    {t:"按下没反应", w:1, x:"触点氧化或接线脱落，用万用表通断档按下测量验证"},
+    {t:"卡滞不回弹", w:1, x:"进灰或弹簧损坏，清洁后仍卡滞则更换"},
+    {t:"时通时断", w:1, x:"螺丝松动或触点烧蚀，重新压接或更换触点模块"}
+  ],
+  terminals:[["13-14","常开 NO（启动）"],["11-12","常闭 NC（停止）"],["22mm","面板开孔尺寸"]]
+},
+{
+  id:"estop", cat:"switch", code:"SB（急停）", name:"急停按钮", img:"assets/estop.jpg", sym:"nonc",
+  summary:"拍下即断、自锁保持，紧急情况下的安全开关。",
+  func:[
+    "红色蘑菇头，拍下后常闭触点强制断开并机械自锁，设备立即停车",
+    "顺时针旋转或拔起蘑菇头才能复位，防止误恢复",
+    "采用直断式结构，触点被机械强制断开，不依赖弹簧"
+  ],
+  wiring:[
+    "必须接常闭 NC（11-12 或 21-22），这样线路断线也会触发停机，符合故障安全原则",
+    "串在控制回路最前端，安全等级要求高的设备接双通道两组 NC",
+    "严禁用常开 NO 接急停"
+  ],
+  faults:[
+    {t:"拍下设备不停", w:1, x:"错接成 NO 或回路被旁路，属严重安全隐患，立即整改"},
+    {t:"无法复位", w:0, x:"按蘑菇头上箭头方向顺时针旋转后再拔起"},
+    {t:"没拍也停机", w:1, x:"回路断线或端子松动，沿急停回路逐段测量"}
+  ],
+  terminals:[["11-12 / 21-22","常闭 NC，急停主用"],["23-24","常开 NO（仅信号指示用）"],["蘑菇头","拍下自锁，旋转复位"]]
+},
+{
+  id:"limit-switch", cat:"switch", code:"SQ", name:"行程开关（限位开关）", img:"assets/limit-switch.jpg", sym:"nonc",
+  summary:"机械碰到就动作，检测位置、极限限位用。",
+  func:[
+    "运动部件撞到滚轮或摆杆时内部触点切换，把机械位置变成电信号",
+    "用于极限限位、原点回归、到位检测、门开关保护",
+    "原理和按钮一样，只是驱动力来自机械撞块而非手指"
+  ],
+  wiring:[
+    "同时具备常开 NO（13-14）和常闭 NC（11-12）",
+    "极限限位用 NC（断线也能停车），普通到位信号用 NO",
+    "安装要留机械过冲余量，滚轮摆杆方向对准撞块，撞块压下角度约 70%~80% 行程"
+  ],
+  faults:[
+    {t:"经常被撞坏", w:1, x:"安装位置不对或固定松动，重新调整并紧固"},
+    {t:"碰到不动作", w:1, x:"摆杆卡死、内部弹簧失效，更换开关"},
+    {t:"信号抖动", w:1, x:"撞块磨损或压接松动，加固机械连接并检查端子"}
+  ],
+  terminals:[["13-14","常开 NO"],["11-12","常闭 NC"],["滚轮摆杆","机械驱动部分"]]
+},
+/* ---- 传感与信号 ---- */
+{
+  id:"indicator", cat:"sensor", code:"HL", name:"指示灯（信号灯）", img:"assets/indicator.jpg", sym:"lamp",
+  summary:"显示电源、运行、故障状态，柜面状态窗口。",
+  func:[
+    "用灯光直观显示设备状态：电源、运行、停止、故障报警",
+    "常见红、绿、黄（白）三色，22mm 标准开孔，LED 寿命长、发热小",
+    "带蜂鸣器的型号可声光同时报警"
+  ],
+  wiring:[
+    "并联在被监测回路，经触点或 PLC 输出取电，电压要与灯体一致（24V/220V）",
+    "一般约定：绿色运行、红色停止/故障、黄色预警、白色电源",
+    "蜂鸣型注意区分正负极（直流型）"
+  ],
+  faults:[
+    {t:"灯不亮", w:1, x:"LED 损坏、供电触点未闭合或接线脱落，先测灯座电压"},
+    {t:"亮度变暗闪烁", w:1, x:"供电电压不足或接触不良"},
+    {t:"蜂鸣器不响", w:1, x:"蜂鸣线圈损坏或驱动触点未动作"}
+  ],
+  terminals:[["两个接线端","并联取电，无极性（交流）"],["22mm","面板开孔"],["颜色","状态约定，按图纸统一"]]
+},
+{
+  id:"proximity", cat:"sensor", code:"SQ", name:"接近开关", img:"assets/proximity.jpg", sym:"prox",
+  summary:"不用接触，金属靠近就输出信号，分 NPN/PNP。",
+  func:[
+    "电感式只检测金属，物体靠近到检测距离时内部输出级动作，无机械触点、寿命长",
+    "三线制：棕色接 +24V、蓝色接 0V、黑色为信号输出",
+    "分 NPN（动作输出低电平）和 PNP（动作输出高电平），各有常开 NO、常闭 NC"
+  ],
+  wiring:[
+    "棕 BN 接 +24V，蓝 BU 接 0V，黑 BK 接 PLC 输入点",
+    "NPN 配漏型输入（PLC 输入公共端接 +24V）；PNP 配源型输入（公共端接 0V），接错信号反逻辑",
+    "检测距离按铭牌（如 M18 常见 8mm），安装留间隙，金属对金属安装注意干扰"
+  ],
+  faults:[
+    {t:"一直有信号", w:1, x:"安装距离太近或 NPN/PNP 与 PLC 输入类型不匹配"},
+    {t:"靠近无反应", w:1, x:"电源接反、检测物不是金属或超出检测距离"},
+    {t:"信号乱跳", w:1, x:"附近有强电磁干扰、线缆与动力线同槽，改用屏蔽线分开布线"}
+  ],
+  terminals:[["棕 BN","+24V 电源正"],["蓝 BU","0V 电源负"],["黑 BK","信号输出到 PLC"],["NPN/PNP","输出类型，必须与 PLC 匹配"]]
+},
+{
+  id:"photoelectric", cat:"sensor", code:"SQ", name:"光电开关", img:"assets/photoelectric.jpg", sym:"prox",
+  summary:"靠光束检测物体，金属非金属都能测、距离远。",
+  func:[
+    "发射光并接收反射/遮挡信号，分对射式、反射板式、漫反射式三种",
+    "对射式距离最远（几十米），靠物体遮挡光束；漫反射靠物体自身反光，安装最简单",
+    "可检测金属、塑料、透明物等几乎所有材料"
+  ],
+  wiring:[
+    "三线制与接近开关相同：棕 +24V、蓝 0V、黑信号；继电器输出型多为五线（多一组白/灰触点）",
+    "对射式发射端只接电源，接收端接信号线，两者光轴必须对准",
+    "电位器旋钮调节灵敏度，透明或反光物体要降灵敏度防误判"
+  ],
+  faults:[
+    {t:"对射式误动作", w:1, x:"光轴偏移或镜头积灰，重新对准并清洁镜头"},
+    {t:"检测不到深色物体", w:1, x:"深色吸光，调高灵敏度或换对射式"},
+    {t:"受环境光干扰", w:1, x:"避开阳光直射、强灯光，加装遮光罩"}
+  ],
+  terminals:[["棕 BN","+24V"],["蓝 BU","0V"],["黑 BK","信号输出"],["白/灰","继电器输出型辅助触点"]]
+}
+,
+/* ---- 电源与 PLC ---- */
+{
+  id:"power-supply", cat:"control", code:"G", name:"开关电源（24V）", img:"assets/power-supply.jpg", sym:"psu",
+  summary:"把 220V 交流电变成稳定的 24V 直流电。",
+  func:[
+    "输入 AC 220V，输出稳定 DC 24V，给传感器、PLC、继电器、电磁阀供电",
+    "导轨式体积小，自带过压、过流、短路保护，故障时打嗝保护、排除后自恢复",
+    "相比老式变压器效率高、稳压范围宽"
+  ],
+  wiring:[
+    "输入端 L、N 接 220V 交流；输出端 V+ 接 +24V，V-（COM）接 0V",
+    "功率按负载总电流 × 24V 再留 30% 余量选（如总电流 2A，选 24×2×1.3≈62W 以上）",
+    "柜内所有直流设备的 0V 一般共地，接到电源 V-；接地端子可靠接地"
+  ],
+  faults:[
+    {t:"指示灯不亮无输出", w:1, x:"查输入 220V 是否正常、内部保险是否熔断"},
+    {t:"输出电压偏低", w:1, x:"负载过载或线路短路，断开负载单独测电源判断"},
+    {t:"频繁保护重启", w:1, x:"下级有短路或电源功率不足，逐个断开支路定位"}
+  ],
+  terminals:[["L / N","AC220V 输入"],["V+","+24V 输出"],["V- / COM","0V 输出"],["ADJ","输出电压微调（一般不动）"]]
+},
+{
+  id:"plc", cat:"control", code:"PLC", name:"可编程控制器（PLC）", img:"assets/plc.jpg", sym:"plc",
+  summary:"自动化的大脑，按程序扫描输入、驱动输出。",
+  func:[
+    "循环执行“读输入 → 执行程序 → 刷新输出”的扫描周期，代替硬接线逻辑",
+    "输入端子接按钮、传感器；输出端子驱动继电器、指示灯、电磁阀",
+    "继电器输出型可带交直流负载、电流大但动作慢；晶体管输出型只能直流、速度快，适合脉冲控制"
+  ],
+  wiring:[
+    "电源端子 L/N（或 L+/M）接指定电压，保护地可靠接地",
+    "输入点 X 接主令/传感器，与输入公共端 COM 构成回路，分清漏型、源型",
+    "输出点 Y 经公共端接负载，负载电源外接，PLC 输出本身不提供大电流"
+  ],
+  faults:[
+    {t:"输入点不亮", w:1, x:"查现场触点、接线和公共端 COM，短接输入点与 COM 验证 PLC 端好坏"},
+    {t:"输出不动作", w:1, x:"程序无输出、输出元件损坏或负载电源缺失，先看程序状态再查外部"},
+    {t:"ERROR 灯报警", w:1, x:"程序错误或模块故障，连编程软件读诊断信息"}
+  ],
+  terminals:[["L/N 或 L+/M","工作电源"],["X 点 + COM","数字量输入"],["Y 点 + COM","数字量输出"],["⏚","保护接地"]]
+},
+{
+  id:"terminal-block", cat:"control", code:"XB", name:"接线端子排", img:"assets/terminal-block.jpg", sym:"terminal",
+  summary:"导线转接与编号管理，让柜内走线整齐可维护。",
+  func:[
+    "给现场线缆和柜内元件提供可拆接的连接点，方便检修和分段测试",
+    "配合线号管、端子编号，让每根线都有“身份证”",
+    "导轨组合式，可按回路数量任意增减位数"
+  ],
+  wiring:[
+    "一个端子原则上最多接两根线，不同线径选对应规格端子（如 UK2.5 接 2.5mm²）",
+    "两端压接同号线号，端子排两侧贴端子条编号",
+    "大电流、接地、保险、刀闸等有专用端子，不要用普通端子硬凑"
+  ],
+  faults:[
+    {t:"端子发热", w:1, x:"压接不紧或一个端子塞太多线，重新规范压接"},
+    {t:"断线难查", w:1, x:"缺线号或图纸未更新，补全线号并同步图纸"},
+    {t:"绝缘破损短路", w:1, x:"端子排间距被异物、毛刺短接，清理并检查剥线长度"}
+  ],
+  terminals:[["两侧螺丝孔","同一金属导体，两端互通"],["中间隔板","相邻端子绝缘"],["导轨","35mm DIN 导轨固定"]]
+},
+/* ---- 执行与仪表 ---- */
+{
+  id:"solenoid", cat:"machine", code:"YV", name:"电磁阀（气动）", img:"assets/solenoid.jpg", sym:"coil",
+  summary:"得电切换气路，控制气缸动作的执行元件。",
+  func:[
+    "线圈得电产生磁力拉动阀芯，切换压缩空气通路，控制气缸伸出/缩回",
+    "4V210（五位二通单线圈）最常见，失电后弹簧复位",
+    "线圈可单独更换，阀体负责气路"
+  ],
+  wiring:[
+    "线圈电压多为 DC24V，顶部透明插头带指示灯和浪涌抑制，注意正负极",
+    "气口：P 接气源，A、B 接气缸两端，R、S 装消声器排气",
+    "电气侧一般由中间继电器或 PLC 输出驱动，不直接接 PLC 大电流"
+  ],
+  faults:[
+    {t:"得电不动作", w:1, x:"气压不足、阀芯卡死或线圈烧毁，先听线圈吸合声再查气路"},
+    {t:"气缸动作无力", w:1, x:"气源压力低、漏气或消声器堵塞"},
+    {t:"线圈频繁烧", w:1, x:"电压不稳或长期超温，核对电压并改善散热"}
+  ],
+  terminals:[["线圈两端","DC24V，带极性指示"],["P","进气口"],["A / B","工作气口接气缸"],["R / S","排气口装消声器"]]
+},
+{
+  id:"motor", cat:"machine", code:"M", name:"三相异步电动机", img:"assets/motor.jpg", sym:"motor",
+  summary:"把电能变成旋转机械能，工厂最主要的动力。",
+  func:[
+    "定子通三相电产生旋转磁场，带动转子转动，结构结实、几乎免维护",
+    "接线盒内六个端子 U1V1W1、U2V2W2，可接成星形（Y）或三角形（△）",
+    "铭牌标额定功率、电流、电压、转速、绝缘等级和接法"
+  ],
+  wiring:[
+    "三相 380V：小功率多为星形，较大功率按铭牌三角形或星三角启动",
+    "换转向任意对调两根火线即可；接线盒压线牢固，金属外壳必须接地",
+    "首次送电点动确认转向，避免机械反转损坏设备"
+  ],
+  faults:[
+    {t:"启动不转只嗡嗡", w:1, x:"缺相运行，立即断电，查断路器、接触器触点和接线"},
+    {t:"过热冒烟", w:1, x:"过载、缺相、散热不良或轴承卡死，测三相电流是否平衡"},
+    {t:"轴承异响", w:1, x:"缺油或轴承损坏，停机加注润滑脂或更换轴承"},
+    {t:"绝缘低跳闸", w:1, x:"绕组受潮，烘干后用绝缘电阻表测，低于 0.5MΩ 不能送电"}
+  ],
+  terminals:[["U1 V1 W1","绕组首端"],["U2 V2 W2","绕组尾端，接片决定 Y/△"],["接地螺丝","外壳保护接地"]]
+},
+{
+  id:"multimeter", cat:"machine", code:"—", name:"数字万用表", img:"assets/multimeter.jpg", sym:"meter",
+  summary:"电工随身第一工具，测电压、电流、电阻、通断。",
+  func:[
+    "电压档并联测交直流电压；电流档串联进回路；电阻档必须断电测量",
+    "通断档（蜂鸣）查线路通断、触点好坏，最常用",
+    "好一点的表还能测电容、频率、温度，带真有效值（True RMS）更准"
+  ],
+  wiring:[
+    "黑表笔固定插 COM，红表笔按测量插 VΩ 或 mA/10A 孔，测完电流插回 VΩ 防烧表",
+    "测未知量先选最大量程再往下调，防止超量程",
+    "测电压确认档位是 V 不是 A，带表笔裸露部分手指不触碰金属端"
+  ],
+  faults:[
+    {t:"屏幕无显示", w:0, x:"先换电池，查表笔内部断线"},
+    {t:"电压档烧表", w:1, x:"误在电流档去并联测电压，更换保险丝并养成测前看档习惯"},
+    {t:"读数乱跳", w:1, x:"表笔接触不良或电池电量低，更换表笔或电池"}
+  ],
+  terminals:[["COM","黑表笔公共孔"],["VΩ","电压/电阻/通断红表笔孔"],["mA / 10A","电流档专用孔"],["转盘","选档位与量程，测前必看"]]
+},
+{
+  id:"vfd", cat:"advanced", code:"VFD", name:"变频器（变频调速器）", img:"assets/vfd.jpg", sym:"vfd",
+  summary:"靠改变电源频率来调节电机转速，软启动、节能、精准调速。",
+  func:[
+    "把固定频率的交流电先整流成直流、再逆变成频率可调的交流电，频率变低电机就转得慢",
+    "实现电机无级调速、软启动（减少启动冲击），风机水泵类节能明显",
+    "自带过流、过压、过载保护，还能通过端子或通信接收调速、启停指令"
+  ],
+  wiring:[
+    "主回路：R/S/T 接三相电源（单相机型接 L/N），U/V/W 接电机，进出线绝不能接反，否则烧机",
+    "电机外壳可靠接地，电机与变频器之间线不宜过长，必要时加输出电抗器",
+    "控制端子：DI 接启停/多段速，AI 接 0-10V 或 4-20mA 调速信号，TA/TC 是故障继电器，485 接通信",
+    "(+)、BR 接制动电阻（快速停车、位能负载时用）；调试先设电机铭牌参数再做自学习"
+  ],
+  faults:[
+    {t:"OC 过流", w:1, x:"加速时间太短、负载卡死、电机线短路，先查机械和接线再延长加减速时间"},
+    {t:"OV 过压 / LU 欠压", w:0, x:"过压多为减速太快或制动电阻问题，欠压查输入电源和电压"},
+    {t:"OL 过载", w:1, x:"负载过重或参数偏小，测实际电流，排查机械卡滞"},
+    {t:"电机不转/抖动", w:0, x:"频率给定为零、使能没给或电机参数不对，查运行指令和参数"}
+  ],
+  terminals:[["R/S/T","三相电源输入（单相为 L/N）"],["U/V/W","接三相电机，不可接反"],["(+)、BR","接制动电阻"],["DI/AI/AO","数字量/模拟量控制端子"],["485、TA/TC","通信与故障继电器输出"]]
+},
+{
+  id:"servo", cat:"advanced", code:"伺服", name:"伺服驱动器 + 伺服电机", img:"assets/servo.jpg", sym:"servo",
+  summary:"高精度位置、速度、转矩控制，带编码器闭环，定位精准不丢步。",
+  func:[
+    "驱动器接收脉冲或总线指令控制伺服电机，编码器实时把位置反馈回来形成闭环",
+    "定位精度高、响应快、刚性好，适合机械手、数控机床、精密定位等场合",
+    "可工作在位置、速度、转矩三种模式，靠参数切换"
+  ],
+  wiring:[
+    "主回路 L1/L2/L3（小功率有单相）接电源，U/V/W 接伺服电机，PE 可靠接地",
+    "CN1 接控制信号（脉冲/方向、使能、IO），CN2 接电机编码器反馈，CN3/CN4 接通信或面板",
+    "P、C 之间是内置制动，外接制动电阻按说明书接；动力线与编码器线分开走线防干扰",
+    "上电先设电机型号、电子齿轮比、控制模式，再调增益（刚性）消除抖动"
+  ],
+  faults:[
+    {t:"报警不运行", w:1, x:"看面板报警代码，常见过流、过载、编码器断线，按手册查代码处理"},
+    {t:"位置超差/抖动", w:1, x:"增益刚性不匹配或机械松动，调整增益、检查联轴器和负载"},
+    {t:"使能不上", w:0, x:"SON 使能、急停或限位回路未接通，查控制接线"},
+    {t:"编码器异常", w:1, x:"编码器线损坏、接触不良或受干扰，检查屏蔽和接头"}
+  ],
+  terminals:[["L1/L2/L3","电源输入"],["U/V/W","伺服电机动力线"],["CN1","控制 IO/脉冲指令"],["CN2","编码器反馈"],["P/C、PE","制动与接地"]]
+},
+{
+  id:"stepper", cat:"advanced", code:"步进", name:"步进驱动器 + 步进电机", img:"assets/stepper.jpg", sym:"stepper",
+  summary:"每来一个脉冲就转一个固定角度，开环控制、成本低、定位准但会丢步。",
+  func:[
+    "驱动器把脉冲信号放大驱动电机，PUL 决定走多少、DIR 决定方向、ENA 决定是否使能",
+    "结构简单、价格低、低速力矩大，适合定位精度不极端、成本敏感的场合",
+    "靠拨码设置细分（把一个整步拆成多小步）和电流，细分越高越平滑"
+  ],
+  wiring:[
+    "电源 V+/GND 接直流电源（按驱动器电压范围），A+/A-、B+/B- 接电机两组绕组",
+    "控制信号 PUL（脉冲）、DIR（方向）、ENA（使能），注意共阳/共阴接法",
+    "脉冲频率决定转速、脉冲个数决定转角，接线用屏蔽线并远离动力线",
+    "先按电机额定电流设拨码电流，再设细分，细分变化后脉冲当量要重新算"
+  ],
+  faults:[
+    {t:"丢步/错位", w:1, x:"负载太重、加速太快、脉冲频率超范围或扭矩不足，降速并核对扭矩"},
+    {t:"不转只抖动", w:1, x:"A/B 相接错、脉冲方向接反或电流太小，核对相序和拨码"},
+    {t:"发热严重", w:0, x:"电流设太大或长时间锁止，加散热、合理设自动半流"},
+    {t:"方向反/不动", w:0, x:"DIR 或脉冲电平不匹配，检查接线方式与信号类型"}
+  ],
+  terminals:[["V+/GND","直流电源"],["A+/A-、B+/B-","电机两相绕组"],["PUL","脉冲输入，控位置速度"],["DIR","方向输入"],["ENA","使能，可不用"],["SW 拨码","设电流与细分"]]
+},
+{
+  id:"hmi", cat:"advanced", code:"HMI", name:"触摸屏（人机界面 HMI）", img:"assets/hmi.jpg", sym:"hmi",
+  summary:"用画面替代成堆按钮指示灯，显示数据、设定参数、记录报警，和 PLC 通信。",
+  func:[
+    "在屏幕上做按钮、指示灯、数据框、曲线、报警画面，操作员点屏就能操作机器",
+    "通过通信读取 PLC 数据并下发设定值，一台屏可替代大量实物按钮，改画面不用改接线",
+    "支持报警记录、数据存储、趋势曲线、用户权限等功能"
+  ],
+  wiring:[
+    "供电基本都是 24V 直流，正负极接对，电源加滤波或与动力电源分开",
+    "通信口用 485（Modbus RTU）或以太网（Modbus TCP）连 PLC，地址、波特率要和 PLC 一致",
+    "下载口用厂家组态软件下载画面，通信线用屏蔽线",
+    "组态时每个元件要绑定正确的 PLC 地址，地址错了显示或操作就不对"
+  ],
+  faults:[
+    {t:"通信不上", w:1, x:"通信线接反、协议/地址/波特率不一致，逐项核对并查指示灯"},
+    {t:"黑屏/不开机", w:0, x:"24V 电源、保险或背光问题，先查供电"},
+    {t:"触摸失灵/偏移", w:0, x:"校准触摸、查保护膜和屏体，严重则更换"},
+    {t:"数据不刷新", w:1, x:"绑定地址错误或通信中断，核对变量地址和通信状态"}
+  ],
+  terminals:[["24V/0V","直流供电"],["COM/485","串口通信连 PLC"],["LAN","以太网通信"],["下载口","接电脑组态下载"]]
+},
+{
+  id:"encoder", cat:"advanced", code:"ENC", name:"旋转编码器", img:"assets/encoder.jpg", sym:"encoder",
+  summary:"把转角、转速转成电脉冲，用来测位置、速度、计数。",
+  func:[
+    "轴转动时输出脉冲，PLC 数脉冲就知道转了多少、转多快",
+    "增量式输出 A、B 两相（相位差 90°，可辨方向）和 Z 相（每圈一个零位脉冲）",
+    "绝对式每个角度对应一个固定编码，断电后位置不丢；增量式断电要重新找零"
+  ],
+  wiring:[
+    "电源 VCC、0V 按铭牌（常见 5-24V），输出 A、B、Z 相接 PLC 高速计数输入或伺服",
+    "输出类型有 NPN/PNP、推挽、差分，要和接收端匹配，长线用差分抗干扰",
+    "屏蔽层单端接地，线缆远离变频器等强干扰源，用柔性连接避免硬连接伤轴",
+    "PLC 侧配置高速计数器，按每转脉冲数（PPR）换算实际位移"
+  ],
+  faults:[
+    {t:"无脉冲输出", w:1, x:"供电错误、线断或输出类型不匹配，先查电源和接线"},
+    {t:"计数不准/乱跳", w:1, x:"干扰、屏蔽接地不良或机械打滑，做屏蔽、查联轴器"},
+    {t:"方向不对", w:0, x:"A/B 相接反或程序方向设置，对调两相即可"},
+    {t:"轴损坏/异响", w:1, x:"连接不同心、径向受力过大，改用柔性连接并对中"}
+  ],
+  terminals:[["VCC/0V","工作电源"],["A、B","两相脉冲，辨方向"],["Z","零位脉冲，每圈一个"],["SHIELD","屏蔽层接地"]]
+},
+{
+  id:"safety-relay", cat:"advanced", code:"KSR", name:"安全继电器", img:"assets/safety-relay.jpg", sym:"safety",
+  summary:"专门监控急停、安全门、光幕，冗余强制断开，触点粘连也能发现。",
+  func:[
+    "用多组冗余、带强制导向的触点监控安全回路，任一触点粘连都不能复位，避免普通继电器失效带来危险",
+    "急停拍下、安全门打开、光幕被挡时，立即切断动力输出",
+    "符合相应安全等级（PL/SIL），需手动复位确认无危险后才能重新启动"
+  ],
+  wiring:[
+    "A1/A2 接工作电源（多为 24V），S11/S12、S21/S22 接双通道安全输入（急停/安全门触点）",
+    "复位端子接复位按钮，采用监控式复位（松开才生效），防止复位按钮卡住",
+    "安全输出 13/14、23/24、33/34 等串进接触器或使能回路，触点数量按需选",
+    "接线要保证双通道、避免短接，按手册接线图接，普通控制不能借用安全输出"
+  ],
+  faults:[
+    {t:"无法复位/不吸合", w:1, x:"通道不一致、触点粘连或复位接线错误，核对双通道和复位方式"},
+    {t:"一上电就动作", w:0, x:"安全输入未闭合或急停被按下，查现场安全器件"},
+    {t:"安全门无效", w:1, x:"门开关触点损坏或接线短接，检查开关和回路"},
+    {t:"指示灯异常", w:0, x:"按面板灯判断通道状态，对照手册排查对应回路"}
+  ],
+  terminals:[["A1/A2","工作电源"],["S11/S12、S21/S22","双通道安全输入"],["S33/S34","复位回路"],["13/14、23/24、33/34","安全输出触点"]]
+}
+];
+
+/* ========== 电气原理符号 SVG（白底深色线条） ========== */
+var SVC = {
+  ink:"#3a4757", blue:"#1f63b0", orange:"#ef8623", green:"#26a364", red:"#d8483e", gray:"#8a95a1",
+  brown:"#8a5a33", yellow:"#c99a2e"
+};
+function svgHead(){
+  return '<svg viewBox="0 0 340 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="原理符号图">';
+}
+function svgWire(x1,y1,x2,y2,c){
+  return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="'+(c||SVC.ink)+'" stroke-width="2.4" stroke-linecap="round"/>';
+}
+function svgText(x,y,t,c,size,anchor){
+  return '<text x="'+x+'" y="'+y+'" fill="'+(c||SVC.gray)+'" font-family="Consolas,Courier New,monospace" font-size="'+(size||12)+'" text-anchor="'+(anchor||'middle')+'">'+t+'</text>';
+}
+function buildSymbolSVG(c){
+  var s = svgHead();
+  var t = c.sym;
+
+  if (t === "fuse"){
+    s += svgWire(30,95,118,95) + svgWire(222,95,310,95);
+    s += '<rect x="118" y="78" width="104" height="34" rx="3" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += svgText(170,100,c.code,SVC.blue,15);
+    s += svgText(60,80,"进线",SVC.gray,11) + svgText(280,80,"出线",SVC.gray,11);
+    s += svgText(170,140,"熔芯熔断即断开，一次性",SVC.gray,11);
+  }
+  else if (t === "mcb"){
+    s += svgWire(170,28,170,58);
+    s += '<circle cx="170" cy="62" r="4" fill="'+SVC.ink+'"/>';
+    s += '<line x1="170" y1="70" x2="192" y2="56" stroke="'+SVC.ink+'" stroke-width="2.6" stroke-linecap="round"/>';
+    s += '<circle cx="192" cy="70" r="4" fill="'+SVC.ink+'"/>';
+    s += svgWire(192,70,192,92);
+    s += '<rect x="150" y="92" width="84" height="46" rx="4" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>';
+    s += '<path d="M162 106 q10 14 0 22" fill="none" stroke="'+SVC.orange+'" stroke-width="2"/>';
+    s += svgText(188,121,"热",SVC.orange,10);
+    s += '<path d="M206 106 l12 18 M218 106 l-12 18" stroke="'+SVC.blue+'" stroke-width="2"/>';
+    s += svgText(222,121,"磁",SVC.blue,10);
+    s += svgWire(192,138,192,162);
+    s += svgText(225,40,"1",SVC.gray,11) + svgText(225,160,"2",SVC.gray,11);
+    s += svgText(90,60,"过载延时跳 / 短路瞬跳",SVC.gray,11,"start");
+  }
+  else if (t === "rccb"){
+    s += '<circle cx="150" cy="95" r="46" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += svgWire(40,78,104,78) + svgWire(196,78,300,78);
+    s += svgWire(40,112,104,112) + svgWire(196,112,300,112);
+    s += svgText(150,90,"零序",SVC.blue,11) + svgText(150,105,"互感器",SVC.blue,11);
+    s += '<rect x="238" y="62" width="40" height="22" rx="3" fill="'+SVC.orangeSoft+'" stroke="'+SVC.orange+'" stroke-width="2"/>';
+    s += svgText(258,77,"T",SVC.orange,12);
+    s += svgWire(258,84,258,112);
+    s += svgText(60,62,"L",SVC.gray,11) + svgText(60,130,"N",SVC.gray,11);
+    s += svgText(170,165,"电流差值 > 30mA 即跳闸",SVC.gray,11);
+  }
+  else if (t === "coil"){
+    s += svgWire(40,95,100,95);
+    s += '<rect x="100" y="70" width="72" height="50" rx="7" fill="#fff" stroke="'+SVC.blue+'" stroke-width="2.4"/>';
+    s += svgText(136,100,c.code,SVC.blue,15);
+    s += svgWire(172,95,230,95);
+    /* 辅助触点 */
+    s += svgText(268,72,"NO 13-14",SVC.green,10);
+    s += svgWire(250,80,262,80) + '<line x1="262" y1="86" x2="280" y2="76" stroke="'+SVC.green+'" stroke-width="2.2"/>' + svgWire(280,80,298,80);
+    s += svgText(268,128,"NC 21-22",SVC.red,10);
+    s += svgWire(250,120,298,120) + '<line x1="272" y1="114" x2="272" y2="126" stroke="'+SVC.red+'" stroke-width="2.2"/>';
+    s += svgText(136,150,"线圈得电 → 触点动作",SVC.gray,11);
+  }
+  else if (t === "thermal"){
+    s += '<rect x="60" y="60" width="70" height="70" rx="5" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>';
+    s += '<path d="M78 78 q16 12 0 24 q16 12 0 20" fill="none" stroke="'+SVC.orange+'" stroke-width="2.2"/>';
+    s += svgText(95,100,"热",SVC.orange,12);
+    s += svgWire(130,95,200,95);
+    s += svgWire(200,95,250,95);
+    s += '<line x1="250" y1="88" x2="250" y2="102" stroke="'+SVC.red+'" stroke-width="2.4"/>';
+    s += svgWire(250,95,300,95);
+    s += svgText(275,80,"95-96",SVC.red,10);
+    s += svgText(170,155,"过载 → 双金属片弯曲 → 常闭断开",SVC.gray,11);
+  }
+  else if (t === "nonc"){
+    s += svgText(90,55,"常开 NO",SVC.green,12);
+    s += svgWire(35,80,80,80) + '<circle cx="84" cy="80" r="4" fill="'+SVC.ink+'"/>' + '<line x1="88" y1="80" x2="112" y2="64" stroke="'+SVC.green+'" stroke-width="2.4"/>' + '<circle cx="116" cy="80" r="4" fill="'+SVC.ink+'"/>' + svgWire(120,80,150,80);
+    s += svgText(250,55,"常闭 NC",SVC.red,12);
+    s += svgWire(195,80,240,80) + svgWire(240,80,280,80) + '<line x1="260" y1="70" x2="260" y2="90" stroke="'+SVC.red+'" stroke-width="2.4"/>';
+    s += svgText(170,130,"NO 按下通 / NC 按下断",SVC.gray,11);
+    s += svgText(170,150,"急停、极限限位必须接 NC",SVC.red,11);
+  }
+  else if (t === "lamp"){
+    s += '<circle cx="170" cy="85" r="40" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += '<line x1="145" y1="60" x2="195" y2="110" stroke="'+SVC.orange+'" stroke-width="2.2"/><line x1="195" y1="60" x2="145" y2="110" stroke="'+SVC.orange+'" stroke-width="2.2"/>';
+    s += svgWire(170,25,170,45) + svgWire(170,125,170,150);
+    s += svgText(170,170,"并联取电，颜色约定状态",SVC.gray,11);
+  }
+  else if (t === "prox"){
+    s += '<rect x="120" y="55" width="70" height="80" rx="9" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += '<circle cx="155" cy="55" r="16" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>';
+    s += '<path d="M140 38 q15 -14 30 0 M146 30 q9 -8 18 0" fill="none" stroke="'+SVC.orange+'" stroke-width="2"/>';
+    s += svgWire(135,135,80,168) + svgWire(155,135,155,168) + svgWire(175,135,230,168);
+    s += svgText(70,180,"棕+24",SVC.brown,10) + svgText(155,180,"蓝0",SVC.blue,10) + svgText(240,180,"黑信号",SVC.ink,10);
+    s += svgText(280,120,"NPN/PNP",SVC.red,10,"start");
+  }
+  else if (t === "psu"){
+    s += '<rect x="90" y="50" width="160" height="95" rx="6" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += svgText(125,78,"L",SVC.gray,12) + svgText(125,118,"N",SVC.gray,12);
+    s += svgText(215,78,"V+",SVC.red,12) + svgText(215,118,"V-",SVC.blue,12);
+    s += svgWire(60,70,90,70) + svgWire(60,110,90,110);
+    s += svgWire(250,70,285,70) + svgWire(250,110,285,110);
+    s += svgText(170,102,"AC→DC",SVC.orange,13);
+    s += svgText(170,170,"输入 220V 交流 / 输出 24V 直流",SVC.gray,11);
+  }
+  else if (t === "plc"){
+    s += '<rect x="80" y="40" width="180" height="110" rx="6" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += svgText(170,72,"PLC",SVC.blue,16);
+    for (var i=0;i<3;i++){
+      var yy = 92+i*18;
+      s += svgWire(50,yy,80,yy) + svgText(62,yy-5,"X"+i,SVC.gray,9);
+      s += svgWire(260,yy,290,yy) + svgText(278,yy-5,"Y"+i,SVC.gray,9);
+    }
+    s += svgText(170,175,"扫描：读输入 → 跑程序 → 刷输出",SVC.gray,11);
+  }
+  else if (t === "terminal"){
+    for (var k=0;k<4;k++){
+      var xx = 55+k*60;
+      s += '<rect x="'+xx+'" y="65" width="46" height="60" rx="3" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>';
+      s += svgWire(xx+23,40,xx+23,65) + svgWire(xx+23,125,xx+23,150);
+      s += svgText(xx+23,100,k+1,SVC.blue,12);
+    }
+    s += svgText(170,172,"两端同导体，编号与线号一致",SVC.gray,11);
+  }
+  else if (t === "motor"){
+    s += '<circle cx="170" cy="90" r="48" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.6"/>';
+    s += svgText(170,97,"M",SVC.blue,22);
+    s += svgText(170,115,"3~",SVC.gray,11);
+    s += svgWire(120,30,120,52) + svgWire(170,25,170,42) + svgWire(220,30,220,52);
+    s += svgText(118,22,"L1",SVC.gray,10)+svgText(168,20,"L2",SVC.gray,10)+svgText(218,22,"L3",SVC.gray,10);
+    s += svgText(170,165,"六端子可接 Y 形或 △ 形",SVC.gray,11);
+  }
+  else if (t === "meter"){
+    s += '<rect x="110" y="35" width="120" height="120" rx="10" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += '<rect x="128" y="50" width="84" height="34" rx="3" fill="#dfe9e0" stroke="'+SVC.gray+'" stroke-width="1.6"/>';
+    s += svgText(170,72,"0.000",SVC.ink,14);
+    s += '<circle cx="170" cy="115" r="20" fill="#fff" stroke="'+SVC.orange+'" stroke-width="2.2"/>';
+    s += svgText(170,120,"V",SVC.orange,11);
+    s += svgText(170,175,"电压并联 / 电流串联 / 电阻断电",SVC.gray,11);
+  }
+  else if (t === "vfd"){
+    s += svgWire(70,40,70,62)+svgText(70,32,"R",SVC.gray,10);
+    s += svgWire(110,40,110,62)+svgText(110,32,"S",SVC.gray,10);
+    s += svgWire(150,40,150,62)+svgText(150,32,"T",SVC.gray,10);
+    s += '<rect x="50" y="62" width="180" height="80" rx="6" fill="#fff" stroke="'+SVC.blue+'" stroke-width="2.4"/>';
+    s += svgText(140,95,"VFD",SVC.blue,18)+svgText(140,118,"AC → DC → AC",SVC.orange,11);
+    s += svgWire(100,142,100,165)+svgText(100,178,"U",SVC.gray,10);
+    s += svgWire(140,142,140,165)+svgText(140,178,"V",SVC.gray,10);
+    s += svgWire(180,142,180,165)+svgText(180,178,"W",SVC.gray,10);
+    s += svgText(280,92,"频率↓ 转速↓",SVC.gray,10,"start");
+    s += svgText(140,188,"R/S/T 进、U/V/W 出，不可接反",SVC.gray,10);
+  }
+  else if (t === "servo"){
+    s += '<rect x="90" y="45" width="150" height="95" rx="6" fill="#fff" stroke="'+SVC.blue+'" stroke-width="2.4"/>';
+    s += svgText(165,78,"伺服驱动器",SVC.blue,14)+svgText(165,102,"位置/速度/转矩",SVC.gray,10);
+    s += '<circle cx="292" cy="92" r="26" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>'+svgText(292,97,"SM",SVC.blue,12);
+    s += svgWire(240,85,266,85);
+    s += '<path d="M292 118 q0 32 -128 32 q-32 0 -32 -26" fill="none" stroke="'+SVC.green+'" stroke-width="2" stroke-dasharray="5 4"/>';
+    s += svgText(150,172,"编码器反馈（闭环）",SVC.green,10);
+    s += svgText(165,126,"脉冲/总线指令",SVC.orange,10);
+    s += svgText(165,188,"CN2 编码器、CN1 指令",SVC.gray,10);
+  }
+  else if (t === "stepper"){
+    s += '<rect x="120" y="55" width="120" height="80" rx="6" fill="#fff" stroke="'+SVC.blue+'" stroke-width="2.4"/>';
+    s += svgText(180,88,"步进驱动器",SVC.blue,13)+svgText(180,110,"PUL/DIR/ENA",SVC.gray,10);
+    s += svgWire(40,75,120,75)+svgText(75,66,"脉冲",SVC.orange,10);
+    s += svgWire(240,95,273,95);
+    s += '<circle cx="295" cy="95" r="22" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.2"/>'+svgText(295,100,"M",SVC.blue,12);
+    s += svgText(180,155,"一个脉冲转一个角度（开环）",SVC.gray,10)+svgText(180,173,"会丢步 · 成本低",SVC.red,10);
+  }
+  else if (t === "hmi"){
+    s += '<rect x="70" y="35" width="150" height="110" rx="8" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += '<rect x="82" y="48" width="126" height="70" rx="4" fill="#e6f0fb" stroke="'+SVC.blue+'" stroke-width="1.6"/>';
+    s += '<circle cx="105" cy="72" r="7" fill="'+SVC.green+'"/><circle cx="105" cy="95" r="7" fill="'+SVC.red+'"/>';
+    s += svgText(162,76,"数据/曲线",SVC.ink,10)+svgText(162,99,"报警/参数",SVC.gray,10);
+    s += svgText(145,138,"HMI 触摸屏",SVC.blue,12);
+    s += svgWire(220,90,275,90);
+    s += '<rect x="275" y="72" width="48" height="36" rx="4" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2"/>'+svgText(299,95,"PLC",SVC.blue,11);
+    s += svgText(170,170,"通信读写 PLC 数据",SVC.gray,10);
+  }
+  else if (t === "encoder"){
+    s += '<rect x="110" y="55" width="120" height="80" rx="8" fill="#fff" stroke="'+SVC.ink+'" stroke-width="2.4"/>';
+    s += svgWire(110,95,60,95)+svgText(75,85,"轴",SVC.gray,10);
+    s += svgText(170,88,"编码器",SVC.blue,13)+svgText(170,110,"A B Z",SVC.orange,11);
+    s += svgWire(230,80,292,80)+svgText(260,71,"A/B",SVC.gray,9);
+    s += svgWire(230,108,292,108)+svgText(262,128,"Z",SVC.gray,9);
+    s += svgText(170,155,"转一圈输出固定脉冲数",SVC.gray,10)+svgText(170,173,"A/B 辨方向，Z 为零位",SVC.gray,10);
+  }
+  else if (t === "safety"){
+    s += '<rect x="95" y="40" width="150" height="110" rx="6" fill="#fff" stroke="'+SVC.yellow+'" stroke-width="2.6"/>';
+    s += svgText(170,72,"安全继电器",SVC.yellow,13)+svgText(170,100,"K1 K2 K3",SVC.ink,11);
+    s += svgWire(40,85,95,85)+svgText(65,76,"CH1",SVC.gray,9);
+    s += svgWire(40,110,95,110)+svgText(65,132,"CH2",SVC.gray,9);
+    s += svgWire(245,85,300,85)+svgText(275,76,"13/14",SVC.gray,9);
+    s += svgWire(245,110,300,110)+svgText(275,132,"23/24",SVC.gray,9);
+    s += svgText(170,158,"冗余强制断开 · 粘连可检测",SVC.gray,10)+svgText(170,176,"急停/安全门/光幕",SVC.red,10);
+  }
+  else {
+    s += svgText(170,95,c.code,SVC.blue,18);
+  }
+  return s + "</svg>";
+}
+
+/* ========== 元件库渲染 ========== */
+var currentCat = "all";
+function renderCats(){
+  var h = "";
+  CATS.forEach(function(cat){
+    var n = cat.id === "all" ? COMPONENTS.length :
+      COMPONENTS.filter(function(c){ return c.cat === cat.id; }).length;
+    h += '<button class="cat-btn'+(cat.id === currentCat ? " on" : "")+'" data-cat="'+cat.id+'">'+cat.name+'<span class="cnt">'+n+'</span></button>';
+  });
+  document.getElementById("catList").innerHTML = h;
+}
+function renderComps(){
+  var list = currentCat === "all" ? COMPONENTS :
+    COMPONENTS.filter(function(c){ return c.cat === currentCat; });
+  var h = "";
+  list.forEach(function(c){
+    h += '<button class="comp-card" data-comp="'+c.id+'">'
+      + '<span class="comp-thumb"><img src="'+c.img+'" alt="'+c.name+'"></span>'
+      + '<span class="comp-body"><span class="comp-code mono">'+c.code+'</span>'
+      + '<h3>'+c.name+'</h3><p>'+c.summary+'</p>'
+      + '<span class="comp-more">查看详情</span></span></button>';
+  });
+  document.getElementById("compGrid").innerHTML = h;
+}
+document.getElementById("catList").addEventListener("click", function(e){
+  var b = e.target.closest(".cat-btn");
+  if (!b) return;
+  currentCat = b.getAttribute("data-cat");
+  renderCats();
+  renderComps();
+});
+document.getElementById("compGrid").addEventListener("click", function(e){
+  var b = e.target.closest(".comp-card");
+  if (b) openDetail(b.getAttribute("data-comp"));
+});
+
+/* ========== 元件详情弹层 ========== */
+function openDetail(id){
+  var c = COMPONENTS.find(function(x){ return x.id === id; });
+  if (!c) return;
+  document.getElementById("mTitle").textContent = c.name;
+  document.getElementById("mCode").textContent = "文字符号 " + c.code;
+  var h = '<div class="detail-grid">';
+  h += '<div class="detail-photo"><img src="'+c.img+'" alt="'+c.name+'实物图"></div>';
+  h += '<div class="detail-block"><h4><span class="b">FUNC</span>作用与原理</h4><ul>';
+  c.func.forEach(function(f){ h += '<li>'+f+'</li>'; });
+  h += '</ul></div>';
+  h += '<div class="detail-block"><h4><span class="b">DIAGRAM</span>原理图符号</h4><div class="svg-box">'+buildSymbolSVG(c)+'</div>';
+  h += '<p class="tip-line"><b>看图要点：</b>符号是图纸上的“字母”，先认符号再看接线，实物端子号与图纸一一对应。</p></div>';
+  h += '<div class="detail-block"><h4><span class="b">WIRING</span>接线要点</h4><ul>';
+  c.wiring.forEach(function(w){ h += '<li class="ok">'+w+'</li>'; });
+  h += '</ul></div>';
+  h += '<div class="detail-block"><h4><span class="b">FAULTS</span>常见故障与处理</h4><ul>';
+  c.faults.forEach(function(f){ h += '<li class="warn"><b>'+f.t+'：</b>'+f.x+'</li>'; });
+  h += '</ul></div>';
+  h += '<div class="detail-block"><h4><span class="b">TERMINALS</span>端子速查</h4><table class="term-table">';
+  c.terminals.forEach(function(t){
+    h += '<tr><th>'+t[0]+'</th><td>'+t[1]+'</td></tr>';
+  });
+  h += '</table></div>';
+  h += '</div>';
+  document.getElementById("mBody").innerHTML = h;
+  document.getElementById("modalMask").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeDetail(){
+  document.getElementById("modalMask").classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.getElementById("mClose").addEventListener("click", closeDetail);
+document.getElementById("modalMask").addEventListener("click", function(e){
+  if (e.target === this) closeDetail();
+});
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape" && document.getElementById("modalMask").classList.contains("open")) closeDetail();
+});
+
+renderCats();
+renderComps();
+
+/* ========== 模拟器状态机 ========== */
+var sim = { km:false, fr:false };
+var simSvg = document.getElementById("simSvg");
+var simLog = document.getElementById("simLog");
+
+function addLog(msg, cls){
+  var t = new Date().toLocaleTimeString("zh-CN", {hour12:false});
+  var span = document.createElement("span");
+  span.className = "lg " + (cls || "");
+  span.innerHTML = '<span class="t">'+t+'</span>'+msg;
+  simLog.appendChild(span);
+  simLog.scrollTop = simLog.scrollHeight;
+}
+function setDisplay(selector, show){
+  simSvg.querySelectorAll(selector).forEach(function(el){
+    el.style.display = show ? "" : "none";
+  });
+}
+function setChip(id, text, cls){
+  var el = document.getElementById(id);
+  el.textContent = text;
+  el.className = "status-chip " + cls;
+}
+function updateSim(){
+  var running = sim.km && !sim.fr;
+  /* 主触点与自锁触点 */
+  setDisplay(".mc-gap", !running);
+  setDisplay(".mc-close", running);
+  setDisplay(".seal-gap", !running);
+  setDisplay(".seal-close", running);
+  /* FR 常闭 */
+  setDisplay(".frnc-close", !sim.fr);
+  setDisplay(".frnc-gap", sim.fr);
+  document.getElementById("simFrncMark").style.display = sim.fr ? "none" : "";
+  /* 线圈与热元件 */
+  document.getElementById("simCoilRect").classList.toggle("on", running);
+  simSvg.querySelectorAll(".fr-heater").forEach(function(el){
+    el.classList.toggle("on", sim.fr);
+  });
+  /* 电机 */
+  document.getElementById("simBlade").classList.toggle("go", running);
+  document.getElementById("simMotorCircle").classList.toggle("motor-run", running);
+  document.getElementById("simMText").style.fill = running ? "#7fd6a8" : "#c4cfdb";
+  /* 带电网络 */
+  var live = ["m-src","m-qf","c-l","c-fu","c-sb2"];
+  if (running) live.push("m-km","m-motor","c-seal","c-coil-in","c-coil-out","c-n");
+  simSvg.querySelectorAll(".wire").forEach(function(w){
+    w.classList.toggle("live", live.indexOf(w.getAttribute("data-net")) >= 0);
+  });
+  /* 状态条 */
+  setChip("chipCoil", running ? "KM 线圈得电" : "KM 线圈失电", running ? "on y" : "");
+  setChip("chipContact", running ? "主触点闭合" : "主触点断开", running ? "on g" : "");
+  setChip("chipMotor", running ? "电机运行" : "电机停止", running ? "on g" : "");
+  setChip("chipFR", sim.fr ? "FR 动作（过载）" : "FR 正常", sim.fr ? "on r" : "");
+  document.getElementById("chipPower").textContent = sim.fr ? "总电源合 / 故障未复位" : "总电源 QF 已合";
+  document.getElementById("btnReset").disabled = !sim.fr;
+}
+document.getElementById("btnStart").addEventListener("click", function(){
+  if (sim.fr){ addLog("故障未复位，启动无效，请先按“故障复位”。","r"); return; }
+  if (sim.km){ addLog("电机已在运行，重复按启动不改变状态。","y"); return; }
+  sim.km = true;
+  addLog("按下 SB1：KM 线圈得电，主触点与自锁触点闭合，电机启动。","g");
+  updateSim();
+});
+document.getElementById("btnStop").addEventListener("click", function(){
+  if (!sim.km){ addLog("电机本来就停着，停止无效。","y"); return; }
+  sim.km = false;
+  addLog("按下 SB2：控制回路断开，KM 失电释放，主触点断开，电机停车。","r");
+  updateSim();
+});
+document.getElementById("btnFault").addEventListener("click", function(){
+  if (sim.fr){ addLog("已经处于过载故障状态。","y"); return; }
+  sim.fr = true;
+  sim.km = false;
+  addLog("电机过载：FR 双金属片动作，95-96 常闭断开，KM 释放，电机停转并报警。","r");
+  updateSim();
+});
+document.getElementById("btnReset").addEventListener("click", function(){
+  sim.fr = false;
+  addLog("FR 已手动复位，常闭恢复，可重新按启动。","g");
+  updateSim();
+});
+/* 端子点击：高亮同网络接线 */
+simSvg.addEventListener("click", function(e){
+  var h = e.target.closest(".term-hit");
+  if (!h) return;
+  var net = h.getAttribute("data-net");
+  var info = h.getAttribute("data-info");
+  simSvg.querySelectorAll(".wire").forEach(function(w){
+    w.classList.toggle("net-hl", w.getAttribute("data-net") === net);
+  });
+  var box = document.getElementById("termInfo");
+  box.innerHTML = '<h5>端子网络 <span class="mono">'+net+'</span></h5><div>'+info+'</div>';
+  box.classList.add("show");
+});
+addLog("系统就绪：总电源已合，等待操作。点“启动 SB1”开始。","g");
+updateSim();
+
+/* ========== 习题渲染与判分 ========== */
+var quizState = { basic:{}, fault:{} };
+var currentQuiz = "basic";
+var quizAnchor = document.getElementById("quizAnchor");
+
+function letter(n){ return String.fromCharCode(65 + n); }
+
+function updateQuizSummary(){
+  var list = QUIZ[currentQuiz], st = quizState[currentQuiz];
+  var answered = Object.keys(st).length, correct = 0;
+  Object.keys(st).forEach(function(k){
+    if (st[k] === list[k].answer) correct++;
+  });
+  var el = document.getElementById("quizSummary");
+  if (el){
+    el.innerHTML = '<span>本组进度</span><b>'+answered+' / '+list.length+'</b>'
+      + '<span style="color:#7fd6a8">答对 '+correct+'</span>'
+      + '<span style="color:#f0928a">答错 '+(answered - correct)+'</span>';
+  }
+}
+function renderQuiz(){
+  var list = QUIZ[currentQuiz];
+  var h = '<div class="quiz-summary" id="quizSummary"></div>';
+  list.forEach(function(item, qi){
+    h += '<div class="quiz-item">';
+    h += '<div class="quiz-q"><span class="qn">Q'+(qi+1)+'</span><span>'+item.q+'</span></div>';
+    item.options.forEach(function(op, oi){
+      h += '<button class="quiz-opt" data-qi="'+qi+'" data-oi="'+oi+'">'
+        + '<span class="mk">'+letter(oi)+'</span><span>'+op+'</span></button>';
+    });
+    h += '<div class="quiz-explain" id="explain-'+qi+'"></div></div>';
+  });
+  quizAnchor.innerHTML = h;
+  updateQuizSummary();
+}
+document.getElementById("quizTabs").addEventListener("click", function(e){
+  var b = e.target.closest(".quiz-tab");
+  if (!b) return;
+  currentQuiz = b.getAttribute("data-quiz");
+  document.querySelectorAll(".quiz-tab").forEach(function(x){
+    x.classList.toggle("on", x === b);
+  });
+  renderQuiz();
+});
+quizAnchor.addEventListener("click", function(e){
+  var b = e.target.closest(".quiz-opt");
+  if (!b || b.classList.contains("lock")) return;
+  var qi = +b.getAttribute("data-qi"), oi = +b.getAttribute("data-oi");
+  if (quizState[currentQuiz][qi] !== undefined) return;
+  var item = QUIZ[currentQuiz][qi];
+  quizState[currentQuiz][qi] = oi;
+  var parent = b.closest(".quiz-item");
+  parent.querySelectorAll(".quiz-opt").forEach(function(o, idx){
+    o.classList.add("lock");
+    if (idx === item.answer) o.classList.add("correct");
+    if (idx === oi && oi !== item.answer) o.classList.add("wrong");
+  });
+  var right = oi === item.answer;
+  var ex = document.getElementById("explain-"+qi);
+  ex.className = "quiz-explain show" + (right ? "" : " bad");
+  ex.innerHTML = (right ? "<b>回答正确。</b>" : "<b>回答错误，正确答案是 "+letter(item.answer)+"。</b>")
+    + item.explain;
+  updateQuizSummary();
+});
+renderQuiz();
+
+/* ========== 理论知识数据 ========== */
+var THEORY = [
+{id:"t1", name:"电学基础", items:[
+  {t:"电压、电流、电阻到底是什么",
+   h:`<p>用自来水管打比方最好懂：</p>
+      <ul>
+        <li><b>电压 U（单位伏特 V）</b>：电的"压力"，像水压。压力越大，推电子的劲越足。常见 220V、380V、24V、5V。</li>
+        <li><b>电流 I（单位安培 A）</b>：电子的"流量"，像水管里流过多少水。电流越大，能带的负载越大。</li>
+        <li><b>电阻 R（单位欧姆 Ω）</b>：阻碍电流的东西，像水管粗细、里面的堵塞。</li>
+      </ul>
+      <div class="key">三者关系就是欧姆定律：电压推着电流走，电阻在旁边拦着。</div>`},
+  {t:"直流电 DC 和交流电 AC 的区别",
+   h:`<p><b>直流电 DC</b>：方向不变，像电池、开关电源输出的 24V/12V/5V。PLC、传感器、触摸屏基本都用直流 24V。</p>
+      <p><b>交流电 AC</b>：方向和大小周期性来回变，电网送的就是交流，家里 220V、工业 380V，我国是 50Hz（每秒来回变 50 次）。</p>
+      <div class="key">为什么电网用交流？因为交流能用变压器随意升压，高压输电时线路损耗小，到用户端再降下来。</div>`},
+  {t:"单相电 220V 和三相电 380V 怎么来的",
+   h:`<p><b>单相电</b>：一根火线 L + 一根零线 N，电压 220V，家用照明插座用。</p>
+      <p><b>三相电</b>：三根火线 L1/L2/L3，彼此相位错开 120°。任意一根火线对零线是 <b>220V（相电压）</b>，任意两根火线之间是 <b>380V（线电压）</b>。</p>
+      <div class="formula">380 ≈ 220 × √3</div>
+      <p>三相电机用三相电，旋转平稳、扭矩大、效率高，所以工厂动力都用三相。</p>`},
+  {t:"欧姆定律 I = U / R",
+   h:`<p>电工最基础的公式，三种写法都要会：</p>
+      <div class="formula">I = U / R　　U = I × R　　R = U / I</div>
+      <p>举例：24V 电压加在一个 12Ω 的电阻上，电流 = 24 ÷ 12 = <b>2A</b>。</p>
+      <div class="warnb">知道电压和电阻就能算电流，选型、判断回路是否正常时经常用。</div>`},
+  {t:"串联和并联，家里为什么用并联",
+   h:`<p><b>串联</b>：首尾相接成一条线。电流处处相同，电压相加，总电阻相加。一处断了整条都不通。</p>
+      <p><b>并联</b>：所有元件两端分别接在一起。电压相同，各支路电流相加。一条支路坏了不影响别的。</p>
+      <div class="key">家里的灯、插座、电器全是并联，保证每个都拿到 220V，关掉一个灯别的照常用。控制回路里的自锁触点，就是和启动按钮并联。</div>`},
+  {t:"功率、电能和功率因数",
+   h:`<p><b>功率 P（单位瓦 W）</b>：单位时间干多少活。直流或纯电阻负载：</p>
+      <div class="formula">P = U × I</div>
+      <p>三相交流电机：</p>
+      <div class="formula">P = √3 × U线 × I线 × cosφ</div>
+      <p><b>电能</b>：1 度 = 1 千瓦时（kWh），即 1kW 的电器用 1 小时耗 1 度电。</p>
+      <p><b>功率因数 cosφ</b>：电机要先拿一部分电建立磁场（无功），真正干活的是有功。功率因数 = 有功 ÷ 视在功率，越接近 1 越省电，工厂常用电容柜补偿。</p>`}
+]},
+{id:"t2", name:"计算与选型", items:[
+  {t:"三相电机额定电流估算（一个千瓦两个流）",
+   h:`<p>380V 三相异步电机，现场最常用的口诀：<b>一个千瓦两个流</b>——额定电流大约等于功率千瓦数 × 2。</p>
+      <div class="formula">I ≈ P(kW) × 2</div>
+      <p>举例：5.5kW 电机，电流约 5.5 × 2 ≈ <b>11A</b>。</p>
+      <p>精确公式（要考虑效率 η 和功率因数）：</p>
+      <div class="formula">I = P ÷ (√3 × U × cosφ × η)</div>
+      <div class="warnb">口诀只用于快速估算，选型和整定以电机铭牌上的实际额定电流为准。</div>`},
+  {t:"单相负载电流怎么算",
+   h:`<p>加热管、白炽灯这类阻性负载：</p>
+      <div class="formula">I = P ÷ U</div>
+      <p>举例：220V、2kW 的加热管，电流 = 2000 ÷ 220 ≈ <b>9.1A</b>。</p>`},
+  {t:"导线线径怎么选（铜芯线经验）",
+   h:`<p>核心看导线的<b>安全载流量</b>，必须大于实际工作电流，并留余量；穿管、高温、距离远还要打折。常用铜芯线经验：</p>
+      <ul>
+        <li>1.5 mm²：照明回路</li>
+        <li>2.5 mm²：普通插座</li>
+        <li>4 mm²：空调、厨房、大功率</li>
+        <li>6 mm² 及以上：更大功率、电机进线</li>
+      </ul>
+      <div class="warnb">这是家用/常规经验值，工程上要查电缆载流量表，结合敷设方式、电压降和规范来定，不能只凭口诀。</div>`},
+  {t:"空开、接触器、热继电器怎么配",
+   h:`<ul>
+        <li><b>断路器</b>：电机回路选 D 型（抗启动冲击），额定电流约为电机额定电流 1.5~2.5 倍；普通回路选 C 型。</li>
+        <li><b>接触器</b>：按电机额定电流选 AC-3 类别并留余量，线圈电压要和控制回路一致（220V 或 24V）。</li>
+        <li><b>热继电器</b>：整定电流调到电机额定电流，调节范围要能覆盖额定值。</li>
+      </ul>
+      <div class="key">举例：5.5kW、约 11A 的电机，断路器选 D20 左右，接触器选 12~18A 档，热继电器整定到 11A。</div>`},
+  {t:"常用单位换算",
+   h:`<ul>
+        <li>1 kV = 1000 V；1 kA = 1000 A</li>
+        <li>1 MW = 1000 kW = 1000000 W</li>
+        <li>1 度电 = 1 kWh</li>
+        <li>1 公制马力 ≈ 0.735 kW</li>
+      </ul>`}
+]},
+{id:"t3", name:"电气制图与识图", items:[
+  {t:"电气图纸有哪几种",
+   h:`<ul>
+      <li><b>电气原理图</b>：用符号表示电路怎么工作，不按实物位置画，是分析原理、排查故障最常用的图。</li>
+      <li><b>接线图</b>：按实际端子和线号表示每根线怎么接，给接线和维修用。</li>
+      <li><b>元件布置图</b>：元件在电柜里的实际安装位置。</li>
+      <li>此外还有端子接线图、电缆清册等。</li>
+    </ul>`},
+  {t:"常用文字符号怎么认",
+   h:`<p>原理图上每个元件都有代号，记住这些就入门了：</p>
+      <ul>
+        <li>QF 断路器/漏保、FU 熔断器</li>
+        <li>KM 接触器、FR 热继电器、KA 中间继电器</li>
+        <li>SB 按钮/急停、SQ 行程/接近/光电开关、HL 指示灯</li>
+        <li>G 开关电源、M 电机、YV 电磁阀、HMI 触摸屏、VFD 变频器</li>
+      </ul>
+      <div class="key">同一类有多个就加编号：KM1、KM2、KM3。看到某个触点，就按编号去找它对应的线圈。</div>`},
+  {t:"图形符号怎么看（常开、常闭、线圈）",
+   h:`<p>图形符号表示的是功能，不是实物大小：</p>
+      <ul>
+        <li><b>常开触点 NO</b>：平时断开，线圈得电才闭合</li>
+        <li><b>常闭触点 NC</b>：平时闭合，线圈得电反而断开</li>
+        <li><b>线圈</b>：得电后带动它所有的触点动作</li>
+        <li>按钮带手动动作符号，热继有发热元件和常闭触点</li>
+      </ul>`},
+  {t:"线号、端子号怎么编排",
+   h:`<ul>
+      <li>主回路用 L1/L2/L3、U/V/W 等标注；控制回路常用 1、3、5、7 这样的奇数，每经过一个触点就换一个号。</li>
+      <li>同一条导线（等电位点）线号相同，接线、查线全靠它。</li>
+      <li>进出电柜的线都接到端子排（XB/X1），端子排上有编号，方便外部接线和检修。</li>
+    </ul>`},
+  {t:"怎么看一张原理图（看图顺序）",
+   h:`<div class="key">口诀：先主后控，从左到右，从上到下。</div>
+      <ol style="padding-left:18px">
+        <li>先看主回路：电源 → 断路器 → 接触器主触点 → 热继电器 → 电机，搞清楚谁给谁供电。</li>
+        <li>再看控制回路：从火线出发，顺着按钮、触点、线圈回到零线，看线圈什么时候得电。</li>
+        <li>把每个触点和它所属的线圈对应起来，就能理清动作顺序。</li>
+      </ol>`}
+]},
+{id:"t4", name:"电机与拖动", items:[
+  {t:"三相异步电机的结构",
+   h:`<ul>
+      <li><b>定子</b>：固定部分，里面有三相绕组，通电后产生旋转磁场。</li>
+      <li><b>转子</b>：转动部分，常见鼠笼式，像个带导条的笼子。</li>
+      <li>还有机座、前后端盖、轴承、冷却风扇和接线盒。</li>
+    </ul>`},
+  {t:"电机为什么会转（旋转磁场）",
+   h:`<p>三相交流电通入定子绕组，会产生一个不停旋转的磁场。这个磁场扫过转子导条，在导条里感应出电流，电流在磁场中受力，转子就跟着转起来。</p>
+      <div class="warnb">叫"异步"是因为转子转速永远比磁场（同步转速）慢一点点；一旦一样快，就没有相对运动、感应不出电流，也就没了力矩。</div>`},
+  {t:"同步转速、极数和转差率",
+   h:`<div class="formula">同步转速 n0 = 60 × f ÷ p（f=50Hz，p 为极对数）</div>
+      <ul>
+        <li>2 极（p=1）：3000 转/分</li>
+        <li>4 极（p=2）：1500 转/分</li>
+        <li>6 极（p=3）：1000 转/分</li>
+      </ul>
+      <p>实际转速略低，比如 4 极电机常见 1440 转/分。转差率 =（同步转速 − 实际转速）÷ 同步转速。</p>`},
+  {t:"电机铭牌怎么看",
+   h:`<p>铭牌上重点看：额定功率、额定电压、额定电流、额定转速、接法（Y/△）、频率、功率因数、绝缘等级、防护等级 IP、工作制。</p>
+      <div class="key">接线、选型、整定保护全都以铭牌为准，换电机第一件事就是看铭牌、拍照留存。</div>`},
+  {t:"星形 Y 和三角形 △ 接法",
+   h:`<p><b>星形 Y</b>：三个绕组末端接在一起，首端接三相，每个绕组承受相电压 220V。</p>
+      <p><b>三角形 △</b>：绕组首尾相连成三角形，每个绕组承受线电压 380V。</p>
+      <div class="warnb">具体怎么接看铭牌标注（如 380V 用 △、660V 用 Y）。星三角启动就是先 Y 降压启动、再切 △ 全压运行。</div>`},
+  {t:"四种启动方式对比",
+   h:`<ul>
+      <li><b>直接启动</b>：最简单，但启动电流大（额定的 5~7 倍），小功率电机用。</li>
+      <li><b>星三角启动</b>：降压减小启动电流，但启动转矩也小，适合空载、轻载启动。</li>
+      <li><b>软启动器</b>：平滑升高电压，减小冲击，启动后通常旁路。</li>
+      <li><b>变频启动</b>：最平滑、可全程调速，性能最好但成本最高。</li>
+    </ul>`},
+  {t:"正反转和制动原理",
+   h:`<p><b>正反转</b>：调换任意两根相线就能反转。用正转 KM1、反转 KM2 两个接触器，必须加电气和机械双重互锁，防止两个同时吸合造成相间短路。</p>
+      <p><b>制动</b>：机械制动（抱闸）、电气制动（能耗制动、反接制动、再生制动），让电机快速、准确停下。</p>`},
+  {t:"绝缘等级和防护等级 IP",
+   h:`<p><b>绝缘等级</b>：绕组允许的最高温度，常见 B 级、F 级（155℃）、H 级，越靠后越耐温。</p>
+      <p><b>防护等级 IP</b>：第一位防尘（0~6），第二位防水（0~8），数字越大防护越好，如 IP54、IP65。</p>`}
+]},
+{id:"t5", name:"电磁与低压电器原理", items:[
+  {t:"电磁感应：接触器为什么会吸合",
+   h:`<p>电流通过线圈产生磁场，铁芯被磁化，把衔铁吸过来，带动触点动作：常开闭合、常闭断开。一断电磁场消失，弹簧把衔铁弹回原位。</p>
+      <div class="key">接触器、中间继电器、电磁阀，核心都是"通电吸合、断电弹回"这一套电磁机构。</div>`},
+  {t:"变压器原理",
+   h:`<p>两个绕组绕在同一铁芯上，交流电通过初级绕组产生变化的磁场，次级绕组就感应出电压。</p>
+      <div class="formula">电压比 = 匝数比</div>
+      <p>匝数多的一侧电压高，用来升压或降压，也能做电气隔离。变压器只能变交流，不能变直流。</p>`},
+  {t:"电弧是怎么产生的，怎么灭弧",
+   h:`<p>触点断开大电流时，中间空气被击穿形成电弧，温度很高，会烧蚀触点，不熄灭电就一直通着。</p>
+      <ul>
+        <li>灭弧办法：灭弧罩、灭弧栅（把电弧切成小段）、磁吹、快速拉长电弧。</li>
+        <li>交流电每个周期都有过零点，比直流电更容易灭弧。</li>
+      </ul>`},
+  {t:"双金属片热继电器为什么能保护过载",
+   h:`<p>把两种热膨胀系数不同的金属压在一起，过流发热时因为膨胀不一样就会弯曲，弯到一定程度顶开常闭触点，切断控制回路。</p>
+      <div class="warnb">它有热惯性，启动时的短时大电流不会误动作，适合保护持续过载；但反应慢，挡不住瞬间短路，短路要靠熔断器和断路器。</div>`},
+  {t:"二极管、三极管、NPN 与 PNP",
+   h:`<p><b>二极管</b>：只允许电流单向通过，用于整流、续流、发光指示（LED）。</p>
+      <p><b>三极管</b>：用小电流控制大电流，相当于电子开关，分 NPN 和 PNP 两种。</p>
+      <div class="key">传感器说的 NPN/PNP 输出，本质就是内部三极管接法不同，决定了信号线输出的是低电平还是高电平，接线时要和 PLC 输入类型匹配。</div>`},
+  {t:"开关电源原理简述",
+   h:`<p>先把交流整流成直流，再用开关管高速通断，经高频变压器降压、再整流稳压，得到稳定的直流（如 24V）。</p>
+      <p>相比老式工频变压器，开关电源体积小、重量轻、效率高，PLC、传感器、触摸屏的直流供电基本都靠它。</p>`}
+]},
+{id:"t6", name:"PLC 基础", items:[
+  {t:"PLC 是什么，和继电器控制有什么区别",
+   h:`<p>PLC（可编程逻辑控制器）是工业现场专门做逻辑控制的加固计算机。</p>
+      <ul>
+        <li>继电器控制：逻辑靠接线固定，改功能要重新接线，触点多了易坏。</li>
+        <li>PLC 控制：逻辑写在程序里，改功能改程序即可，可靠性高、功能强、能通信、能处理模拟量。</li>
+      </ul>`},
+  {t:"PLC 的基本结构",
+   h:`<ul>
+      <li><b>CPU</b>：大脑，执行用户程序、做运算。</li>
+      <li><b>电源</b>：把外部电转成内部工作电压。</li>
+      <li><b>存储器</b>：存系统程序、用户程序和数据。</li>
+      <li><b>输入/输出模块（I/O）</b>：接外部按钮、传感器和接触器。</li>
+      <li>通信口：连触摸屏、变频器、上位机。</li>
+    </ul>
+    <p>小型机多为整体式，大中型机是模块化、可按需扩展。</p>`},
+  {t:"PLC 扫描工作原理",
+   h:`<p>PLC 不停地循环扫描，一个扫描周期分三步：</p>
+      <ol style="padding-left:18px">
+        <li><b>输入采样</b>：一次性读取所有输入点的通断状态。</li>
+        <li><b>程序执行</b>：从上到下、从左到右执行梯形图。</li>
+        <li><b>输出刷新</b>：把结果一次性送到输出点。</li>
+      </ol>
+      <div class="key">所以输入变了，要等下一个扫描周期才会反映到输出。扫描周期一般是毫秒级，人几乎感觉不到。</div>`},
+  {t:"数字量、模拟量、源型与漏型",
+   h:`<p><b>数字量（开关量）DI/DO</b>：只有通、断两种状态，接按钮、限位、接触器。</p>
+      <p><b>模拟量 AI/AO</b>：连续变化的量，如温度、压力、转速，常用 0-10V 或 4-20mA 表示。</p>
+      <p><b>源型/漏型</b>：指电流是从 PLC 端子流出还是流入，决定了传感器怎么接，接线前务必查手册确认。</p>`},
+  {t:"梯形图怎么看（母线、触点、线圈、能流）",
+   h:`<p>梯形图左右各一条竖母线，中间用触点和线圈连成"横档"，像横着的梯子。</p>
+      <ul>
+        <li>常开触点 -| |-、常闭触点 -|/|-、线圈 -( )-</li>
+        <li>想象有"能流"从左母线出发，路径上的触点都闭合，能流就过去、线圈得电。</li>
+      </ul>
+      <div class="key">梯形图本质就是把继电器的控制逻辑画成程序，懂了自锁互锁回路，学梯形图会非常快。</div>`},
+  {t:"常用指令有哪些",
+   h:`<ul>
+      <li><b>位逻辑</b>：与（串联）、或（并联）、非（常闭）</li>
+      <li><b>定时器 TON/TOF</b>：通电延时、断电延时</li>
+      <li><b>计数器 CTU/CTD</b>：加计数、减计数</li>
+      <li><b>置位 SET / 复位 RST</b>：让输出保持或解除</li>
+      <li><b>传送 MOV、比较、四则运算</b>，以及上升沿/下降沿检测</li>
+    </ul>`},
+  {t:"做一个 PLC 项目的步骤",
+   h:`<ol style="padding-left:18px">
+      <li>搞清工艺要求和动作流程，统计需要多少输入、输出点。</li>
+      <li>分配 I/O 地址表，画电气接线图并接线。</li>
+      <li>按功能分块写程序：先写安全、互锁，再写手动、自动主流程。</li>
+      <li>下载程序，先空载/模拟调试，再带载调试，全程加注释。</li>
+    </ol>`}
+]},
+{id:"t7", name:"传感器与信号", items:[
+  {t:"开关量信号和模拟量信号",
+   h:`<p><b>开关量</b>：只有 0/1（通/断）两种状态，按钮、接近开关、光电开关都是。</p>
+      <p><b>模拟量</b>：在一个范围内连续变化，如温度、压力、液位，用电压或电流大小来表示数值。</p>`},
+  {t:"NPN/PNP、两线和三线传感器",
+   h:`<p>三线传感器接线有约定：棕色接电源 +、蓝色接 0V、黑色是信号线。</p>
+      <ul>
+        <li><b>NPN</b>：动作时黑线接到 0V，输出低电平。</li>
+        <li><b>PNP</b>：动作时黑线接到 +，输出高电平。</li>
+      </ul>
+      <p>两线传感器只有两根线，像普通开关串进回路，注意有微小漏电流。具体选哪种，要和 PLC 输入类型对上。</p>`},
+  {t:"接近开关和光电开关原理",
+   h:`<ul>
+      <li><b>电感式接近</b>：只对金属起作用，靠金属靠近产生涡流，最常用。</li>
+      <li><b>电容式接近</b>：还能测非金属、液体、料位。</li>
+      <li><b>光电开关</b>：靠光，分对射、反射板、漫反射三种，检测距离远。</li>
+    </ul>
+    <div class="warnb">安装时注意检测距离留余量、避开强干扰和正对反光面，金属接近开关要留安装间隙。</div>`},
+  {t:"0-10V 和 4-20mA 模拟量信号",
+   h:`<p><b>0-10V 电压信号</b>：接线简单，但抗干扰一般、传输距离短。</p>
+      <p><b>4-20mA 电流信号</b>：用 4mA 表示零点、20mA 表示满量程，抗干扰强、能远距离传输，而且断线时电流为 0，很容易发现故障，工业上更常用。</p>
+      <div class="key">选模拟量还要看量程、分辨率和线性度，PLC 程序里要把读到的数字量换算成实际工程量。</div>`},
+  {t:"编码器原理（理论部分）",
+   h:`<p>编码器把轴的转角转成脉冲。增量式靠 A/B/Z 脉冲计数，断电要重新找零；绝对式每个位置对应固定编码，断电位置不丢。配合元件库里的编码器实物一起看。</p>`}
+]},
+{id:"t8", name:"通信与网络", items:[
+  {t:"串行通信基础：波特率、校验",
+   h:`<p>串口通信双方的参数必须完全一致才能通信：</p>
+      <ul>
+        <li><b>波特率</b>：每秒传多少位，常见 9600、115200</li>
+        <li>数据位、停止位，以及校验位（无校验、奇校验、偶校验）</li>
+      </ul>`},
+  {t:"RS-232 和 RS-485 的区别",
+   h:`<ul>
+      <li><b>RS-232</b>：点对点，全双工，传输距离短（十几米），抗干扰一般。</li>
+      <li><b>RS-485</b>：用差分信号，抗干扰强，一条总线可挂多个设备，传输距离可达上千米，工业现场最常用，多为半双工。</li>
+    </ul>`},
+  {t:"Modbus RTU 和 Modbus TCP",
+   h:`<p>Modbus 是设备之间通用的"对话语言"，主站轮询、从站应答，每个从站有自己的地址。</p>
+      <ul>
+        <li><b>Modbus RTU</b>：跑在 RS-485 串口上。</li>
+        <li><b>Modbus TCP</b>：跑在以太网上，接线更简单、速度更快。</li>
+      </ul>
+      <p>数据存在线圈、离散输入、保持寄存器、输入寄存器里，按地址读写，触摸屏、变频器、仪表常用它。</p>`},
+  {t:"工业以太网：Profinet、EtherCAT",
+   h:`<p>是以太网技术在工业上的高速、实时版本，数据量大、速度快，是现代自动化的主流。</p>
+      <ul>
+        <li><b>Profinet</b>：西门子体系常用。</li>
+        <li><b>EtherCAT</b>：实时性极高、速度快。</li>
+        <li>此外还有 EtherNet/IP 等。</li>
+      </ul>
+      <div class="key">新手先把 485 + Modbus 搞熟，再接触工业以太网，原理相通、上手更快。</div>`}
+]},
+{id:"t9", name:"安全用电与接地", items:[
+  {t:"触电原理和安全电压",
+   h:`<p>触电的伤害主要看通过人体的电流大小和时间，电流经过心脏最危险。</p>
+      <ul>
+        <li>安全电压：一般环境 36V，潮湿、狭窄场所降到 24V、12V。</li>
+        <li>单相触电：火线经人体到大地；同时碰两根火线的两相触电最危险。</li>
+      </ul>`},
+  {t:"保护接地和 PE 线",
+   h:`<p>把设备金属外壳用 PE 线可靠接到大地，一旦内部漏电，外壳电压被拉低，电流主要走电阻很小的 PE 线，保护人不被电击。</p>
+      <div class="warnb">PE 线用黄绿双色，正常工作时没有电流，绝不允许在上面装开关或熔断器，也不能和零线混用。</div>`},
+  {t:"TN-S、TN-C、TT 接地系统",
+   h:`<ul>
+      <li><b>TN-S</b>：零线 N 和保护线 PE 全程分开（五线），最安全，工厂和新建建筑常用。</li>
+      <li><b>TN-C</b>：N 和 PE 合并成一根 PEN，省钱但安全性差。</li>
+      <li><b>TT</b>：设备外壳单独就地接地，通常配合漏电保护器使用。</li>
+    </ul>`},
+  {t:"漏电保护器原理",
+   h:`<p>漏保实时比较火线和零线的电流，正常情况下两者相等、差值为零。一旦漏电（电流从人体或外壳跑掉），差值达到动作值（常见 30mA）就在约 0.1 秒内断电。</p>`},
+  {t:"停送电、验电与挂牌上锁（LOTO）",
+   h:`<ol style="padding-left:18px">
+      <li>先断电，再用验电笔验电（验前先确认验电笔是好的），确认无电。</li>
+      <li>挂"禁止合闸、有人工作"牌并上锁，必要时先放电。</li>
+      <li>谁挂牌谁摘牌，送电前确认所有人员撤离、工具清点完毕。</li>
+    </ol>`},
+  {t:"电气火灾怎么处理",
+   h:`<p>主要原因：短路、过载、接触不良、线路老化。</p>
+      <div class="warnb">带电火灾要先断电再灭火，用干粉或二氧化碳灭火器，严禁直接用水和泡沫灭火器，防止触电。</div>`}
+]},
+{id:"t10", name:"气动与液压", items:[
+  {t:"气动系统的组成",
+   h:`<p>压缩空气的来龙去脉：空压机产气 → 储气罐 → 冷干机除水 → 三联件（过滤、调压、油雾）→ 气管 → 电磁阀 → 气缸动作。</p>`},
+  {t:"电磁阀和单、双作用气缸",
+   h:`<p><b>电磁阀</b>：靠线圈得电改变阀芯位置，从而切换气路方向。</p>
+      <ul>
+        <li><b>单作用气缸</b>：一个进气口，靠弹簧复位，通气伸出、断气弹回。</li>
+        <li><b>双作用气缸</b>：两个进气口，伸出和缩回都靠压缩空气，动作更有力、更常用。</li>
+      </ul>`},
+  {t:"怎么看气动符号",
+   h:`<p>气动图里方块表示阀的工作位，箭头表示气路通断方向，配合气缸、气源、排气口符号来看。几位几通（如 5 通 2 位）是选电磁阀的关键参数。</p>`},
+  {t:"液压简单认识",
+   h:`<p>液压用压力油传递动力，特点是力量大、运行平稳，能顶起重载。组成是液压泵、各种阀、液压缸和油箱，符号逻辑和气动类似，但工作压力高得多，要注意漏油和高压安全。</p>`}
+]}
+];
+
+/* ========== 理论知识渲染与交互 ========== */
+var currentTh = "all";
+function thTotal(){
+  var n = 0;
+  THEORY.forEach(function(g){ n += g.items.length; });
+  return n;
+}
+function renderTheoryCats(){
+  var h = '<button class="theory-cat-btn'+(currentTh==="all"?" on":"")+'" data-th="all">全部<span class="tc">'+thTotal()+'</span></button>';
+  THEORY.forEach(function(g){
+    h += '<button class="theory-cat-btn'+(currentTh===g.id?" on":"")+'" data-th="'+g.id+'">'+g.name+'<span class="tc">'+g.items.length+'</span></button>';
+  });
+  document.getElementById("theoryCat").innerHTML = h;
+}
+function renderTheory(){
+  var groups = currentTh==="all" ? THEORY : THEORY.filter(function(g){ return g.id===currentTh; });
+  var h = "";
+  groups.forEach(function(g){
+    if (currentTh==="all"){ h += '<h3 style="margin:20px 0 10px;font-size:15px;color:var(--ink-2)">'+g.name+'</h3>'; }
+    g.items.forEach(function(it, i){
+      h += '<div class="th-card"><button class="th-q"><span class="tn">'+g.id.toUpperCase()+'·'+(i+1)+'</span><span>'+it.t+'</span></button><div class="th-a">'+it.h+'</div></div>';
+    });
+  });
+  document.getElementById("theoryList").innerHTML = h;
+}
+renderTheoryCats();
+renderTheory();
+document.getElementById("theoryCat").addEventListener("click", function(e){
+  var btn = e.target.closest("[data-th]");
+  if (!btn) return;
+  currentTh = btn.getAttribute("data-th");
+  renderTheoryCats();
+  renderTheory();
+});
+document.getElementById("theoryList").addEventListener("click", function(e){
+  var q = e.target.closest(".th-q");
+  if (!q) return;
+  q.parentNode.classList.toggle("open");
+});
+
+/* ========== 职业规划手风琴折叠 ========== */
+document.addEventListener("click", function(e){
+  var sq = e.target.closest(".script-q");
+  if (sq){ sq.closest(".script-card").classList.toggle("open"); return; }
+  var fq = e.target.closest(".faq-q");
+  if (fq){ fq.closest(".faq-card").classList.toggle("open"); }
+});
+
+/* 页面加载后按初始 hash 同步视图（支持刷新、书签、外链直接打开） */
+syncHash();
+
+
+
+</script>
+</body>
+</html>
